@@ -3,7 +3,9 @@ import {
   openingHours,
   reviews,
   ratingSummary,
-  specialtyPies,
+  specialtyPizzas,
+  buildYourOwn,
+  pizzaSizes,
   startersMenu,
   subsMenu,
   type MenuGroup,
@@ -132,6 +134,39 @@ function menuSectionSchema(group: MenuGroup) {
   }
 }
 
+// Pizza items carry one Offer per available size (valid schema.org).
+function pizzaOffers(prices: Partial<Record<string, string>>) {
+  return Object.entries(prices)
+    .filter(([, v]) => v)
+    .map(([k, v]) => ({
+      '@type': 'Offer',
+      price: v,
+      priceCurrency: 'USD',
+      name: pizzaSizes.find((s) => s.key === k)?.label ?? k,
+    }))
+}
+
+function pizzaMenuSection() {
+  return {
+    '@type': 'MenuSection',
+    name: 'Specialty Pies & Build Your Own',
+    hasMenuItem: [
+      ...specialtyPizzas.map((p) => ({
+        '@type': 'MenuItem',
+        name: p.name,
+        description: p.desc,
+        offers: pizzaOffers(p.prices),
+      })),
+      {
+        '@type': 'MenuItem',
+        name: 'Build Your Own Pizza',
+        description: `Choose your size and toppings. ${buildYourOwn.toppings}`,
+        offers: pizzaOffers(buildYourOwn.prices),
+      },
+    ],
+  }
+}
+
 export function menuSchema() {
   return {
     '@context': 'https://schema.org',
@@ -141,7 +176,11 @@ export function menuSchema() {
     url: pageUrl('/menu'),
     inLanguage: 'en-US',
     provider: { '@id': `${SITE_URL}/#restaurant` },
-    hasMenuSection: [...specialtyPies, ...startersMenu, ...subsMenu].map(menuSectionSchema),
+    hasMenuSection: [
+      pizzaMenuSection(),
+      ...startersMenu.map(menuSectionSchema),
+      ...subsMenu.map(menuSectionSchema),
+    ],
   }
 }
 

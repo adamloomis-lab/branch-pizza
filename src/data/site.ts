@@ -92,99 +92,107 @@ export const featurePillars = [
 export type MenuItem = { name: string; price?: string; desc?: string }
 export type MenuGroup = { title: string; note?: string; items: MenuItem[] }
 
-export const specialtyPies: MenuGroup[] = [
+// Pizza sizes, the source of truth for the interactive size picker on the menu.
+// `gf` is the 12″ gluten-free cauliflower crust (a different crust, not a size).
+export type PizzaSizeKey = '10' | '12' | '14' | '16' | 'gf'
+export const pizzaSizes: { key: PizzaSizeKey; label: string; sub: string }[] = [
+  { key: '10', label: '10″', sub: 'Small' },
+  { key: '12', label: '12″', sub: 'Medium' },
+  { key: '14', label: '14″', sub: 'Large' },
+  { key: '16', label: '16″', sub: 'X-Large' },
+  { key: 'gf', label: '12″ GF', sub: 'Cauli' },
+]
+
+export type SpecialtyPizza = {
+  name: string
+  desc: string
+  prices: Partial<Record<PizzaSizeKey, string>>
+}
+
+export const specialtyPizzas: SpecialtyPizza[] = [
   {
-    title: 'Specialty Pies',
-    note: 'Sizes: 10″ · 12″ · 14″ · 16″. Most pies also available on a 12″ cauliflower crust.',
-    items: [
-      {
-        name: 'Chicago Classic Pie',
-        price: '10″ 13.95 · 12″ 19.00 · 14″ 22.50 · 16″ 27.30 · 12″ Cauliflower 22.50',
-        desc: 'Signature garlic butter sauce, mozzarella, broccoli, spinach and grated Romano with an additional top crust.',
-      },
-      {
-        name: "Founder's Favorite",
-        price: '10″ 13.95 · 12″ 15.95 · 14″ 19.95 · 16″ 24.95 · 12″ Cauliflower 21.00',
-        desc: 'Mozzarella, cheddar, mushroom, bacon and grated Romano.',
-      },
-      {
-        name: 'Potato',
-        price: '10″ 13.95 · 12″ 15.95 · 14″ 20.95 · 16″ 25.95 · 12″ Cauliflower 18.95',
-        desc: 'Mashed potatoes, signature garlic butter sauce, mozzarella, cheddar and bacon. Served with sour cream.',
-      },
-      {
-        name: 'Supreme',
-        price: '10″ 14.95 · 12″ 17.95 · 14″ 22.95 · 16″ 25.95 · 12″ Cauliflower 20.50',
-        desc: 'Mozzarella, pepperoni, Italian sausage, mushroom, green pepper, onions and grated Romano.',
-      },
-      {
-        name: 'Taco',
-        price: '10″ 14.75 · 12″ 16.75 · 14″ 21.75 · 16″ 24.75 · 12″ Cauliflower 19.50',
-        desc: 'Signature enchilada sauce, mozzarella, cheddar, chorizo sausage, onions, jalapeños, lettuce, tomatoes and grated Romano. Served with sour cream and salsa.',
-      },
-      {
-        name: 'Old World',
-        price: '10″ 12.95 · 12″ 15.95 · 14″ 19.95 · 16″ 23.95 · 12″ Cauliflower 18.95',
-        desc: 'Mozzarella, smoked provolone, Old World pepperoni and grated Romano.',
-      },
-      {
-        name: 'Stromboli',
-        price: '10″ 13.25 · 12″ 15.50 · 14″ 17.65 · 16″ 19.80',
-        desc: 'Signature garlic butter sauce with a blend of spices, mozzarella, original pepperoni and grated Romano. Served with our signature red sauce for dipping. Additional toppings available with an upcharge.',
-      },
-      {
-        name: 'Veggie Deluxe',
-        price: '10″ 13.95 · 12″ 16.95 · 14″ 19.95 · 16″ 23.95',
-        desc: 'Mozzarella, mushrooms, green peppers, onions, black olives, Roma tomatoes and grated Romano.',
-      },
-      {
-        name: 'BBQ Chicken',
-        price: '10″ 13.95 · 12″ 16.95 · 14″ 21.95 · 16″ 24.95 · 12″ Cauliflower 18.95',
-        desc: 'Signature BBQ sauce, mozzarella, cheddar, grilled chicken, onions and grated Romano.',
-      },
-      {
-        name: 'Buffalo Chicken',
-        price: '10″ 13.95 · 12″ 16.95 · 14″ 21.95 · 16″ 24.95 · 12″ Cauliflower 18.95',
-        desc: 'Signature mild sauce, ranch, mozzarella, cheddar, grilled chicken, onions and grated Romano.',
-      },
-      {
-        name: 'Four Cheese',
-        price: '10″ 12.95 · 12″ 15.95 · 14″ 19.95 · 16″ 23.95 · 12″ Cauliflower 19.95',
-        desc: 'Mozzarella, smoked provolone, shaved parmesan and grated Romano.',
-      },
-      {
-        name: 'Hawaiian',
-        price: '10″ 12.95 · 12″ 15.95 · 14″ 19.95 · 16″ 23.95 · 12″ Cauliflower 18.95',
-        desc: 'Mozzarella, bacon, smoked ham, pineapple and grated Romano.',
-      },
-      {
-        name: "Meat Lover's",
-        price: '10″ 13.95 · 12″ 17.95 · 14″ 22.95 · 16″ 29.95 · 12″ Cauliflower 21.95',
-        desc: 'Mozzarella, pepperoni, Italian sausage, smoked ham, bacon and grated Romano.',
-      },
-      {
-        name: 'BLT Pizza',
-        price: '10″ 12.95 · 12″ 15.95 · 14″ 18.95 · 16″ 21.95 · 12″ Cauliflower 17.95',
-        desc: 'Mayo for the sauce, mozzarella, bacon, lettuce and tomato.',
-      },
-      {
-        name: 'Kibler Special',
-        price: '10″ 15.60 · 12″ 18.50 · 14″ 21.95 · 16″ 25.95 · 12″ Cauliflower 22.95',
-        desc: 'Thin crust, mozzarella, original pepperoni, Old World pepperoni, Italian sausage and extra mozzarella with grated Romano. Cooked extra crisp.',
-      },
-    ],
+    name: 'Chicago Classic Pie',
+    prices: { '10': '13.95', '12': '19.00', '14': '22.50', '16': '27.30', gf: '22.50' },
+    desc: 'Signature garlic butter sauce, mozzarella, broccoli, spinach and grated Romano with an additional top crust.',
   },
   {
-    title: 'Build Your Own Pie',
-    note: 'Sizes: 10″ 9.75 · 12″ 12.95 · 14″ 14.25 · 16″ 16.25 · 12″ Cauliflower (gluten-free) 16.50. Additional charge to add toppings or make it Chicago style.',
-    items: [
-      {
-        name: 'Toppings',
-        desc: 'Mozzarella, provolone, cheddar, shredded parmesan, grated Romano, pepperoni, Old World pepperoni, Italian sausage, pinched Italian sausage, smoked ham, salami, bacon, capicola, homemade meatballs, grilled chicken, onions, red onions, green peppers, broccoli, spinach, mushrooms, banana peppers, green olives, black olives, jalapeños, tomatoes, pineapple and pickles.',
-      },
-    ],
+    name: "Founder's Favorite",
+    prices: { '10': '13.95', '12': '15.95', '14': '19.95', '16': '24.95', gf: '21.00' },
+    desc: 'Mozzarella, cheddar, mushroom, bacon and grated Romano.',
+  },
+  {
+    name: 'Potato',
+    prices: { '10': '13.95', '12': '15.95', '14': '20.95', '16': '25.95', gf: '18.95' },
+    desc: 'Mashed potatoes, signature garlic butter sauce, mozzarella, cheddar and bacon. Served with sour cream.',
+  },
+  {
+    name: 'Supreme',
+    prices: { '10': '14.95', '12': '17.95', '14': '22.95', '16': '25.95', gf: '20.50' },
+    desc: 'Mozzarella, pepperoni, Italian sausage, mushroom, green pepper, onions and grated Romano.',
+  },
+  {
+    name: 'Taco',
+    prices: { '10': '14.75', '12': '16.75', '14': '21.75', '16': '24.75', gf: '19.50' },
+    desc: 'Signature enchilada sauce, mozzarella, cheddar, chorizo sausage, onions, jalapeños, lettuce, tomatoes and grated Romano. Served with sour cream and salsa.',
+  },
+  {
+    name: 'Old World',
+    prices: { '10': '12.95', '12': '15.95', '14': '19.95', '16': '23.95', gf: '18.95' },
+    desc: 'Mozzarella, smoked provolone, Old World pepperoni and grated Romano.',
+  },
+  {
+    name: 'Stromboli',
+    prices: { '10': '13.25', '12': '15.50', '14': '17.65', '16': '19.80' },
+    desc: 'Signature garlic butter sauce with a blend of spices, mozzarella, original pepperoni and grated Romano. Served with our signature red sauce for dipping. Additional toppings available with an upcharge.',
+  },
+  {
+    name: 'Veggie Deluxe',
+    prices: { '10': '13.95', '12': '16.95', '14': '19.95', '16': '23.95' },
+    desc: 'Mozzarella, mushrooms, green peppers, onions, black olives, Roma tomatoes and grated Romano.',
+  },
+  {
+    name: 'BBQ Chicken',
+    prices: { '10': '13.95', '12': '16.95', '14': '21.95', '16': '24.95', gf: '18.95' },
+    desc: 'Signature BBQ sauce, mozzarella, cheddar, grilled chicken, onions and grated Romano.',
+  },
+  {
+    name: 'Buffalo Chicken',
+    prices: { '10': '13.95', '12': '16.95', '14': '21.95', '16': '24.95', gf: '18.95' },
+    desc: 'Signature mild sauce, ranch, mozzarella, cheddar, grilled chicken, onions and grated Romano.',
+  },
+  {
+    name: 'Four Cheese',
+    prices: { '10': '12.95', '12': '15.95', '14': '19.95', '16': '23.95', gf: '19.95' },
+    desc: 'Mozzarella, smoked provolone, shaved parmesan and grated Romano.',
+  },
+  {
+    name: 'Hawaiian',
+    prices: { '10': '12.95', '12': '15.95', '14': '19.95', '16': '23.95', gf: '18.95' },
+    desc: 'Mozzarella, bacon, smoked ham, pineapple and grated Romano.',
+  },
+  {
+    name: "Meat Lover's",
+    prices: { '10': '13.95', '12': '17.95', '14': '22.95', '16': '29.95', gf: '21.95' },
+    desc: 'Mozzarella, pepperoni, Italian sausage, smoked ham, bacon and grated Romano.',
+  },
+  {
+    name: 'BLT Pizza',
+    prices: { '10': '12.95', '12': '15.95', '14': '18.95', '16': '21.95', gf: '17.95' },
+    desc: 'Mayo for the sauce, mozzarella, bacon, lettuce and tomato.',
+  },
+  {
+    name: 'Kibler Special',
+    prices: { '10': '15.60', '12': '18.50', '14': '21.95', '16': '25.95', gf: '22.95' },
+    desc: 'Thin crust, mozzarella, original pepperoni, Old World pepperoni, Italian sausage and extra mozzarella with grated Romano. Cooked extra crisp.',
   },
 ]
+
+export const buildYourOwn = {
+  prices: { '10': '9.75', '12': '12.95', '14': '14.25', '16': '16.25', gf: '16.50' } as Record<PizzaSizeKey, string>,
+  toppings:
+    'Mozzarella, provolone, cheddar, shredded parmesan, grated Romano, pepperoni, Old World pepperoni, Italian sausage, pinched Italian sausage, smoked ham, salami, bacon, capicola, homemade meatballs, grilled chicken, onions, red onions, green peppers, broccoli, spinach, mushrooms, banana peppers, green olives, black olives, jalapeños, tomatoes, pineapple and pickles.',
+  note: 'Additional charge to add toppings or make it Chicago style.',
+}
 
 export const startersMenu: MenuGroup[] = [
   {
