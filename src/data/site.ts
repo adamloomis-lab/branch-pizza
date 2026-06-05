@@ -240,10 +240,10 @@ export const startersMenu: MenuGroup[] = [
     title: 'Wings',
     note: 'Served in the sauce of your choice. Sauces: BBQ, citrus chipotle, mild, hot, garlic parmesan, kickin’ bourbon, stingin’ honey garlic, teriyaki, BQ sauce (mild & garlic parm mix). Dry rubs: Caribbean jerk, sweet habanero, Cajun, chipotle Carolina, JJ’s heat fixins.',
     items: [
-      { name: 'Traditional Wings', price: '10 · 18.95 · 20 · 34.00' },
-      { name: 'Flats', price: '10 · 20.35 · 20 · 35.40' },
-      { name: 'Drummies', price: '10 · 20.35 · 20 · 35.40' },
-      { name: 'Boneless Wings', price: '12 · 15.99 · 24 · 29.95' },
+      { name: 'Traditional Wings', price: '10 pc 18.95 · 20 pc 34.00' },
+      { name: 'Flats', price: '10 pc 20.35 · 20 pc 35.40' },
+      { name: 'Drummies', price: '10 pc 20.35 · 20 pc 35.40' },
+      { name: 'Boneless Wings', price: '12 pc 15.99 · 24 pc 29.95' },
     ],
   },
 ]

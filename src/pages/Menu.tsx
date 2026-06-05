@@ -9,33 +9,60 @@ import {
   startersMenu,
   subsMenu,
   barMenu,
+  type MenuItem,
   type MenuGroup,
   type PizzaSizeKey,
 } from '../data/site'
 
-function Group({ group }: { group: MenuGroup }) {
+// A single price like "9.00" or "$2.50" (one clean number).
+const SINGLE_PRICE = /^\$?\s*\d+(?:\.\d+)?$/
+// Put a $ in front of the trailing number of a segment: "Small 6.25" -> "Small $6.25".
+const withDollar = (seg: string) => seg.trim().replace(/(\d+(?:\.\d+)?)\s*$/, '$$$1')
+
+// The shared menu card, name + description + price, used for every item on the page.
+function ItemCard({ item }: { item: MenuItem }) {
+  const p = item.price?.trim()
+  const single = !!p && SINGLE_PRICE.test(p)
+  const num = single ? p!.replace(/^\$\s*/, '') : null
+  const options = !single && p ? p.split('·').map((s) => s.trim()) : []
+
+  return (
+    <div className="card-brut flex items-start justify-between gap-5 rounded-lg p-5 sm:p-6">
+      <div className="min-w-0">
+        <h3 className="font-display text-headline-sm uppercase text-ink">{item.name}</h3>
+        {item.desc && <p className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">{item.desc}</p>}
+        {options.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {options.map((o, i) => (
+              <span
+                key={i}
+                className="rounded-full border-2 border-ink/15 px-3 py-1 font-cond text-[13px] font-semibold uppercase tracking-[0.04em] text-ink"
+              >
+                {withDollar(o)}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+      {single && <span className="shrink-0 font-display text-3xl leading-none text-brick">${num}</span>}
+    </div>
+  )
+}
+
+// A category, heading + note + a grid of the shared item cards.
+function MenuBlock({ group }: { group: MenuGroup }) {
   return (
     <div className="reveal">
-      <h3 className="font-display text-headline-md uppercase text-ink">{group.title}</h3>
-      <span className="brick-rule mt-3 block w-[56px]" />
-      {group.note && <p className="mt-4 text-[13px] leading-relaxed text-ink-faint">{group.note}</p>}
-      <ul className="mt-5 divide-y divide-line">
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+        <h2 className="font-display text-headline-md uppercase text-ink md:text-[34px]">{group.title}</h2>
+        <span className="brick-rule block w-[56px]" />
+      </div>
+      {group.note && <p className="mt-4 max-w-3xl text-[13px] leading-relaxed text-ink-faint">{group.note}</p>}
+      <div className="mt-6 grid gap-5 md:grid-cols-2">
         {group.items.map((it) => (
-          <li key={it.name} className="py-3.5">
-            <div className="flex items-baseline justify-between gap-4">
-              <span className="font-cond text-[17px] font-semibold uppercase tracking-[0.02em] text-ink">
-                {it.name}
-              </span>
-              {it.price && (
-                <span className="shrink-0 text-right font-cond text-sm font-semibold tabular-nums text-brick">
-                  {it.price}
-                </span>
-              )}
-            </div>
-            {it.desc && <p className="mt-1 max-w-prose text-[14px] leading-relaxed text-ink-soft">{it.desc}</p>}
-          </li>
+          <ItemCard key={it.name} item={it} />
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
@@ -157,6 +184,11 @@ function SpecialtyPies() {
   )
 }
 
+// Group the flat category list into the page's textured background bands.
+const startersBlocks = startersMenu // Starters, Salads, Wings
+const subsBlocks = subsMenu.filter((g) => ['Subs', 'Dinners'].includes(g.title))
+const extrasBlocks = subsMenu.filter((g) => ['Specials', 'Dessert', 'Beverages'].includes(g.title))
+
 export default function Menu() {
   return (
     <>
@@ -190,26 +222,33 @@ export default function Menu() {
 
       {/* Starters / Salads / Wings */}
       <section className="paper-texture section-lift bg-paper-3 py-20 md:py-28">
-        <div className="container-x grid gap-7 lg:grid-cols-3">
-          {startersMenu.map((g) => (
-            <div key={g.title} className="card-brut rounded-lg p-7">
-              <Group group={g} />
-            </div>
+        <div className="container-x space-y-16">
+          {startersBlocks.map((g) => (
+            <MenuBlock key={g.title} group={g} />
           ))}
         </div>
       </section>
 
-      {/* Subs / Dinners / Specials / Dessert / Beverages */}
+      {/* Subs / Dinners */}
       <section className="paper-texture-soft bg-paper py-20 md:py-28">
-        <div className="container-x grid gap-10 lg:grid-cols-2">
-          {subsMenu.map((g) => (
-            <Group key={g.title} group={g} />
+        <div className="container-x space-y-16">
+          {subsBlocks.map((g) => (
+            <MenuBlock key={g.title} group={g} />
+          ))}
+        </div>
+      </section>
+
+      {/* Specials / Dessert / Beverages */}
+      <section className="paper-texture section-lift bg-paper-3 py-20 md:py-28">
+        <div className="container-x space-y-16">
+          {extrasBlocks.map((g) => (
+            <MenuBlock key={g.title} group={g} />
           ))}
         </div>
       </section>
 
       {/* Full bar */}
-      <section className="paper-texture section-lift bg-paper-3 py-20 md:py-28">
+      <section className="paper-texture-soft bg-paper py-20 md:py-28">
         <div className="container-x">
           <div className="reveal mb-10 text-center">
             <p className="eyebrow">21+ · Dine-in</p>
@@ -223,7 +262,7 @@ export default function Menu() {
               </h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {barMenu.beer.map((b) => (
-                  <li key={b} className="rounded-full border border-ink/15 px-3 py-1.5 text-[13px] text-ink-soft">
+                  <li key={b} className="rounded-full border-2 border-ink/15 px-3 py-1.5 text-[13px] text-ink-soft">
                     {b}
                   </li>
                 ))}
@@ -235,7 +274,7 @@ export default function Menu() {
               </h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {barMenu.wine.map((w) => (
-                  <li key={w} className="rounded-full border border-ink/15 px-3 py-1.5 text-[13px] text-ink-soft">
+                  <li key={w} className="rounded-full border-2 border-ink/15 px-3 py-1.5 text-[13px] text-ink-soft">
                     {w}
                   </li>
                 ))}
@@ -249,7 +288,7 @@ export default function Menu() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="paper-texture-soft bg-paper py-16 text-center">
+      <section className="paper-texture section-lift bg-paper-3 py-16 text-center">
         <div className="container-x">
           <h2 className="font-display text-headline-lg text-ink md:text-[36px]">Hungry yet?</h2>
           <p className="mx-auto mt-3 max-w-md text-body-md text-ink-soft">
