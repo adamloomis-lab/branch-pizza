@@ -45,7 +45,13 @@ export default function Contact() {
   return (
     <>
       {/* ---------- HEADER ---------- */}
-      <section className="steel-panel brick-texture relative overflow-hidden">
+      <section className="relative overflow-hidden">
+        <img
+          src="/images/storefront-neon-night.webp"
+          alt="Branch Pizza storefront glowing at dusk on the Sunbury square"
+          className="kenburns absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="smoke-overlay absolute inset-0" aria-hidden="true" />
         <div className="container-x relative z-10 pt-36 pb-16 text-center">
           <p className="eyebrow">On the Sunbury square</p>
           <h1 className="mt-3 font-display text-display-lg-mobile text-cream md:text-[56px]">

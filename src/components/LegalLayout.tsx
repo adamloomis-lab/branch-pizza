@@ -13,7 +13,13 @@ export default function LegalLayout({
 }) {
   return (
     <>
-      <section className="steel-panel brick-texture relative overflow-hidden">
+      <section className="relative overflow-hidden">
+        <img
+          src="/images/storefront-neon-night.webp"
+          alt="Branch Pizza storefront at dusk"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="smoke-overlay absolute inset-0" aria-hidden="true" />
         <div className="container-x relative z-10 pt-36 pb-14 text-center">
           <p className="eyebrow">Branch Pizza</p>
           <h1 className="mt-3 font-display text-display-lg-mobile text-cream md:text-[56px]">

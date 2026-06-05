@@ -231,7 +231,13 @@ export default function Menu() {
   return (
     <>
       {/* Header */}
-      <section className="steel-panel brick-texture relative overflow-hidden">
+      <section className="relative overflow-hidden">
+        <img
+          src="/images/pepperoni-cup-rack.webp"
+          alt="Branch Pizza signature crisped pepperoni-cup pizza"
+          className="kenburns absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="smoke-overlay absolute inset-0" aria-hidden="true" />
         <div className="container-x relative z-10 pt-36 pb-16 text-center">
           <p className="eyebrow">Branch Pizza · Sunbury</p>
           <h1 className="mt-3 font-display text-display-lg-mobile text-cream md:text-[60px]">

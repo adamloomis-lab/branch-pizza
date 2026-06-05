@@ -2,7 +2,13 @@ import Button from '../components/Button'
 
 export default function NotFound() {
   return (
-    <section className="steel-panel brick-texture relative flex min-h-[80vh] items-center justify-center overflow-hidden px-5 pt-20 text-center">
+    <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden px-5 pt-20 text-center">
+      <img
+        src="/images/pepperoni-cup-top.webp"
+        alt="Branch Pizza pepperoni pizza"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="smoke-overlay absolute inset-0" aria-hidden="true" />
       <div className="relative z-10">
         <p className="eyebrow">404</p>
         <h1 className="mt-3 font-display text-display-lg-mobile text-cream md:text-display-lg">
