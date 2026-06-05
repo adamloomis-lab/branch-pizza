@@ -12,7 +12,45 @@ import {
   type MenuItem,
   type MenuGroup,
   type PizzaSizeKey,
+  type Drink,
 } from '../data/site'
+
+// Color-coded by style so each beer/wine stands out and the list is scannable.
+const DRINK_STYLES: Record<string, { c: string; on: string }> = {
+  'Light Lager': { c: '#ecd27a', on: '#1a1511' },
+  Lager: { c: '#e0a32f', on: '#1a1511' },
+  'Amber Lager': { c: '#b5701a', on: '#ffffff' },
+  IPA: { c: '#cc5a1e', on: '#ffffff' },
+  Wheat: { c: '#ecdda6', on: '#1a1511' },
+  'Golden Ale': { c: '#e8bc52', on: '#1a1511' },
+  Cider: { c: '#e0201e', on: '#ffffff' },
+  Seltzer: { c: '#2fa0a0', on: '#ffffff' },
+  Seasonal: { c: '#3a2a1a', on: '#ffffff' },
+  Red: { c: '#8a2330', on: '#ffffff' },
+  White: { c: '#d8c77e', on: '#1a1511' },
+}
+
+function DrinkTile({ drink, kind }: { drink: Drink; kind: 'beer' | 'wine' }) {
+  const s = DRINK_STYLES[drink.style] ?? { c: '#e0a32f', on: '#1a1511' }
+  const Icon = kind === 'wine' ? Wine : Beer
+  return (
+    <div className="card-brut card-brut-hover overflow-hidden rounded-lg">
+      <span className="block h-1.5 w-full" style={{ backgroundColor: s.c }} aria-hidden="true" />
+      <div className="p-4">
+        <div className="flex items-center justify-between gap-2">
+          <Icon size={18} style={{ color: s.c }} aria-hidden="true" />
+          <span
+            className="rounded-full px-2.5 py-0.5 font-cond text-[10px] font-bold uppercase tracking-[0.08em]"
+            style={{ backgroundColor: s.c, color: s.on }}
+          >
+            {drink.style}
+          </span>
+        </div>
+        <h4 className="mt-2.5 font-display text-[17px] uppercase leading-tight text-ink">{drink.name}</h4>
+      </div>
+    </div>
+  )
+}
 
 // A single price like "9.00" or "$2.50" (one clean number).
 const SINGLE_PRICE = /^\$?\s*\d+(?:\.\d+)?$/
@@ -255,30 +293,25 @@ export default function Menu() {
             <h2 className="mt-3 font-display text-headline-lg text-ink md:text-[40px]">From the Bar</h2>
             <span className="brick-rule mx-auto mt-5 block w-[72px]" />
           </div>
-          <div className="grid gap-7 md:grid-cols-3">
-            <div className="reveal card-brut rounded-lg p-7 md:col-span-2">
-              <h3 className="flex items-center gap-2 font-cond text-headline-sm uppercase text-brick">
-                <Beer size={18} /> Beer
-              </h3>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {barMenu.beer.map((b) => (
-                  <li key={b} className="rounded-full border-2 border-ink/15 px-3 py-1.5 text-[13px] text-ink-soft">
-                    {b}
-                  </li>
-                ))}
-              </ul>
+          <div className="reveal">
+            <h3 className="flex items-center gap-2 font-cond text-headline-sm uppercase text-ink">
+              <Beer size={20} className="text-brick" /> Beer
+            </h3>
+            <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {barMenu.beer.map((b) => (
+                <DrinkTile key={b.name} drink={b} kind="beer" />
+              ))}
             </div>
-            <div className="reveal card-brut rounded-lg p-7">
-              <h3 className="flex items-center gap-2 font-cond text-headline-sm uppercase text-brick">
-                <Wine size={18} /> Wine
-              </h3>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {barMenu.wine.map((w) => (
-                  <li key={w} className="rounded-full border-2 border-ink/15 px-3 py-1.5 text-[13px] text-ink-soft">
-                    {w}
-                  </li>
-                ))}
-              </ul>
+          </div>
+
+          <div className="reveal mt-12">
+            <h3 className="flex items-center gap-2 font-cond text-headline-sm uppercase text-ink">
+              <Wine size={20} className="text-brick" /> Wine
+            </h3>
+            <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {barMenu.wine.map((w) => (
+                <DrinkTile key={w.name} drink={w} kind="wine" />
+              ))}
             </div>
           </div>
           <p className="mt-8 text-center text-[12px] uppercase tracking-[0.14em] text-ink-faint">

@@ -364,14 +364,34 @@ export const subsMenu: MenuGroup[] = [
 ]
 
 // Beer & wine, shown as simple lists (full bar).
-export const barMenu = {
+// Each drink carries a style so the menu can color-code and tag it.
+export type Drink = { name: string; style: string }
+export const barMenu: { beer: Drink[]; wine: Drink[] } = {
   beer: [
-    'Michelob Ultra', 'Budweiser', 'Bud Light', 'Miller Lite', 'Coors Light', 'Goose Island',
-    'Yuengling', 'Yuengling Flight', 'Busch Light', 'Blue Moon', 'Peroni', 'Kona Big Wave',
-    'Truly', 'High Noon', 'Angry Orchard Crisp Apple', 'CBC IPA', 'BrewDog Elvis Juice',
-    'White Claw', 'Seasonal (Oktoberfest / Christmas Ale)',
+    { name: 'Michelob Ultra', style: 'Light Lager' },
+    { name: 'Budweiser', style: 'Lager' },
+    { name: 'Bud Light', style: 'Light Lager' },
+    { name: 'Miller Lite', style: 'Light Lager' },
+    { name: 'Coors Light', style: 'Light Lager' },
+    { name: 'Goose Island', style: 'IPA' },
+    { name: 'Yuengling', style: 'Amber Lager' },
+    { name: 'Yuengling Flight', style: 'Light Lager' },
+    { name: 'Busch Light', style: 'Light Lager' },
+    { name: 'Blue Moon', style: 'Wheat' },
+    { name: 'Peroni', style: 'Lager' },
+    { name: 'Kona Big Wave', style: 'Golden Ale' },
+    { name: 'Truly', style: 'Seltzer' },
+    { name: 'High Noon', style: 'Seltzer' },
+    { name: 'Angry Orchard', style: 'Cider' },
+    { name: 'CBC IPA', style: 'IPA' },
+    { name: 'BrewDog Elvis Juice', style: 'IPA' },
+    { name: 'White Claw', style: 'Seltzer' },
+    { name: 'Seasonal Ale', style: 'Seasonal' },
   ],
-  wine: ['Pinot Noir', 'Pinot Grigio'],
+  wine: [
+    { name: 'Pinot Noir', style: 'Red' },
+    { name: 'Pinot Grigio', style: 'White' },
+  ],
 }
 
 // ---------------------------------------------------------------------------
