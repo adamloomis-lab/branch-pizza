@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { ShoppingBag, Phone, Beer, Wine, Plus } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import { ShoppingBag, Phone, Beer, Wine, Plus, Salad, Flame, Drumstick } from 'lucide-react'
 import Button from '../components/Button'
 import {
   company,
@@ -9,11 +10,38 @@ import {
   startersMenu,
   subsMenu,
   barMenu,
+  saladDressings,
+  wingSauces,
+  wingDryRubs,
   type MenuItem,
   type MenuGroup,
   type PizzaSizeKey,
   type Drink,
 } from '../data/site'
+
+// Prominent chip card for the dressing / sauce / dry-rub lists.
+function FlavorCard({ icon: Icon, title, items }: { icon: LucideIcon; title: string; items: string[] }) {
+  return (
+    <div className="card-brut reveal rounded-lg p-6 sm:p-7">
+      <h4 className="flex items-center gap-2 font-display text-headline-sm uppercase text-ink">
+        <span className="flex h-9 w-9 items-center justify-center rounded-md bg-brick text-on-brick">
+          <Icon size={18} />
+        </span>
+        {title}
+      </h4>
+      <ul className="mt-5 flex flex-wrap gap-2.5">
+        {items.map((i) => (
+          <li
+            key={i}
+            className="rounded-full border-2 border-ink/12 bg-paper-3 px-4 py-2 font-cond text-sm font-semibold uppercase tracking-[0.03em] text-ink"
+          >
+            {i}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 // Color-coded by style so each beer/wine stands out and the list is scannable.
 const DRINK_STYLES: Record<string, { c: string; on: string }> = {
@@ -268,7 +296,16 @@ export default function Menu() {
       <section className="paper-texture section-lift bg-paper-3 py-20 md:py-28">
         <div className="container-x space-y-16">
           {startersBlocks.map((g) => (
-            <MenuBlock key={g.title} group={g} />
+            <div key={g.title} className="space-y-6">
+              <MenuBlock group={g} />
+              {g.title === 'Salads' && <FlavorCard icon={Salad} title="Dressings" items={saladDressings} />}
+              {g.title === 'Wings' && (
+                <div className="grid gap-6 md:grid-cols-2">
+                  <FlavorCard icon={Flame} title="Wing Sauces" items={wingSauces} />
+                  <FlavorCard icon={Drumstick} title="Dry Rubs" items={wingDryRubs} />
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </section>

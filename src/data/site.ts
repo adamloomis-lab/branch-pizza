@@ -217,7 +217,7 @@ export const startersMenu: MenuGroup[] = [
   },
   {
     title: 'Salads',
-    note: 'Dressings: house Italian, Caesar, buttermilk ranch, honey French, blue cheese, Thousand Island, honey mustard, balsamic vinaigrette. Extra dressing available.',
+    note: 'Served with your choice of dressing. Extra dressing available.',
     items: [
       {
         name: 'House Salad',
@@ -238,7 +238,7 @@ export const startersMenu: MenuGroup[] = [
   },
   {
     title: 'Wings',
-    note: 'Served in the sauce of your choice. Sauces: BBQ, citrus chipotle, mild, hot, garlic parmesan, kickin’ bourbon, stingin’ honey garlic, teriyaki, BQ sauce (mild & garlic parm mix). Dry rubs: Caribbean jerk, sweet habanero, Cajun, chipotle Carolina, JJ’s heat fixins.',
+    note: 'Served in the sauce or dry rub of your choice.',
     items: [
       { name: 'Traditional Wings', price: '10 pc 18.95 · 20 pc 34.00' },
       { name: 'Flats', price: '10 pc 20.35 · 20 pc 35.40' },
@@ -246,6 +246,19 @@ export const startersMenu: MenuGroup[] = [
       { name: 'Boneless Wings', price: '12 pc 15.99 · 24 pc 29.95' },
     ],
   },
+]
+
+// Flavor lists, shown as prominent chip cards on the menu.
+export const saladDressings = [
+  'House Italian', 'Caesar', 'Buttermilk Ranch', 'Honey French',
+  'Blue Cheese', 'Thousand Island', 'Honey Mustard', 'Balsamic Vinaigrette',
+]
+export const wingSauces = [
+  'BBQ', 'Citrus Chipotle', 'Mild', 'Hot', 'Garlic Parmesan',
+  'Kickin’ Bourbon', 'Stingin’ Honey Garlic', 'Teriyaki', 'BQ Sauce (Mild & Garlic Parm)',
+]
+export const wingDryRubs = [
+  'Caribbean Jerk', 'Sweet Habanero', 'Cajun', 'Chipotle Carolina', 'JJ’s Heat Fixins',
 ]
 
 export const subsMenu: MenuGroup[] = [
