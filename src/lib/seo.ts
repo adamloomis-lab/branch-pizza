@@ -11,9 +11,9 @@ import {
   type MenuGroup,
 } from '../data/site'
 
-// Production target domain. Canonicals, sitemap, OG and schema all point here so
-// SEO value lands on the live host the moment DNS flips from the old site.
-export const SITE_URL = 'https://www.branchpizza.com'
+// Production target domain (apex is the Netlify primary; www 301-redirects here).
+// Canonicals, sitemap, OG and schema all point here.
+export const SITE_URL = 'https://branchpizza.com'
 
 const OG_IMAGE = '/images/pepperoni-cup-top.webp'
 
