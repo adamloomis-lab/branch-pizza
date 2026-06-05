@@ -1,0 +1,343 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Anton: heavy condensed poster/signage display (neon-sign energy).
+     Oswald: condensed sub-display for labels & menu headings.
+     Pacifico: the casual script that echoes the "Pizza" in the logo.
+     Inter: clean, legible body. */
+  --font-display: 'Anton', 'Oswald', ui-sans-serif, system-ui, sans-serif;
+  --font-cond: 'Oswald', ui-sans-serif, system-ui, sans-serif;
+  --font-script: 'Pacifico', ui-serif, cursive;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Espresso near-black base, the dark pizzeria mood */
+  --color-paper: #161210;
+  --color-paper-2: #0f0c0a;
+  --color-paper-3: #211a15;
+  --color-card: #1f1813;
+
+  /* Warm cream type on the espresso base */
+  --color-ink: #f4e9d8;
+  --color-ink-soft: #cdbda2;
+  --color-ink-faint: #93826b;
+
+  /* Blackened surfaces, dark sections (hero, footer) */
+  --color-steel: #0f0c0a;
+  --color-steel-2: #161210;
+  --color-steel-3: #211a15;
+  --color-steel-4: #2c231b;
+
+  /* NEON, primary accent / CTA, pulled straight from the storefront sign */
+  --color-brick: #ff5630;
+  --color-brick-dark: #e23f1c;
+  --color-brick-light: #ff7a52;
+  --color-on-brick: #1a0d07;
+
+  /* Vintage gold, the "EST. 1977" badge accent, sparing secondary */
+  --color-bluetip: #e7b24a;
+  --color-bluetip-light: #f3cd78;
+
+  /* Cream type on dark surfaces */
+  --color-cream: #f6ecdc;
+  --color-cream-dim: #cbbca4;
+  --color-cream-faint: #98876f;
+
+  /* Lines / outlines */
+  --color-line: #36291e;
+  --color-line-dark: #281e16;
+
+  --color-error: #ff5630;
+
+  /* Type scale */
+  --text-display-xl: 92px;
+  --text-display-xl--line-height: 0.94;
+  --text-display-xl--letter-spacing: 0.005em;
+  --text-display-xl--font-weight: 400;
+  --text-display-lg: 64px;
+  --text-display-lg--line-height: 0.98;
+  --text-display-lg--font-weight: 400;
+  --text-display-lg-mobile: 42px;
+  --text-display-lg-mobile--line-height: 1.02;
+  --text-display-lg-mobile--font-weight: 400;
+  --text-headline-lg: 33px;
+  --text-headline-lg--line-height: 1.1;
+  --text-headline-lg--font-weight: 400;
+  --text-headline-md: 30px;
+  --text-headline-md--line-height: 1.14;
+  --text-headline-md--font-weight: 400;
+  --text-headline-sm: 22px;
+  --text-headline-sm--line-height: 1.25;
+  --text-headline-sm--font-weight: 400;
+  --text-body-lg: 19px;
+  --text-body-lg--line-height: 1.7;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.72;
+  --text-label-lg: 13px;
+  --text-label-lg--line-height: 1.2;
+  --text-label-lg--letter-spacing: 0.22em;
+  --text-label-lg--font-weight: 600;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 1.2;
+  --text-label-sm--letter-spacing: 0.24em;
+  --text-label-sm--font-weight: 600;
+
+  --spacing-section-gap: 104px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 56px;
+
+  --radius-DEFAULT: 4px;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* Clear the sticky mobile order bar so the footer is never hidden behind it. */
+  @media (max-width: 1023px) {
+    body { padding-bottom: 52px; }
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.012em;
+    line-height: 1.04;
+    font-weight: 400;
+  }
+  a, button:not(:disabled), [role='button'] {
+    cursor: pointer;
+  }
+  ::selection {
+    background-color: var(--color-brick);
+    color: var(--color-on-brick);
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 80rem;
+    padding-inline: var(--spacing-margin-mobile);
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: var(--spacing-margin-desktop);
+    }
+  }
+
+  /* Eyebrow, a small script accent above headings (echoes the logo script) */
+  .eyebrow {
+    font-family: var(--font-script);
+    font-size: 19px;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-brick);
+  }
+
+  /* Uppercase tracked label, used for kicker captions */
+  .kicker {
+    font-family: var(--font-cond);
+    font-size: var(--text-label-lg);
+    letter-spacing: var(--text-label-lg--letter-spacing);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-bluetip);
+  }
+
+  /* Thin neon rule under section headings, "draws" in on reveal */
+  .brick-rule {
+    display: inline-block;
+    width: 72px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-brick), transparent);
+  }
+
+  .check-list li {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 9999px;
+    background-color: var(--color-brick);
+    box-shadow: 0 0 0 3px rgba(255, 86, 48, 0.2), 0 0 10px rgba(255, 86, 48, 0.55);
+  }
+
+  /* Blackened panel for dark sections */
+  .steel-panel {
+    background-color: var(--color-steel);
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 18%),
+      linear-gradient(180deg, var(--color-steel-2), var(--color-steel));
+  }
+
+  .steel-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-line-dark) 12%,
+      var(--color-line-dark) 88%,
+      transparent
+    );
+  }
+
+  /* Legal / policy page prose */
+  .legal-prose h2 {
+    font-family: var(--font-cond);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 22px;
+    color: var(--color-ink);
+    margin-top: 2.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .legal-prose h2:first-child {
+    margin-top: 0;
+  }
+  .legal-prose a {
+    color: var(--color-brick);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .legal-prose ul {
+    list-style: disc;
+    padding-left: 1.4rem;
+  }
+  .legal-prose ul li {
+    margin-top: 0.4rem;
+  }
+  .legal-prose strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+}
+
+/* Neon text glow, for the hero wordmark + select accents */
+.neon {
+  color: var(--color-brick-light);
+  text-shadow:
+    0 0 4px rgba(255, 122, 82, 0.85),
+    0 0 14px rgba(255, 86, 48, 0.7),
+    0 0 30px rgba(255, 86, 48, 0.45);
+}
+.neon-soft {
+  text-shadow:
+    0 0 10px rgba(255, 86, 48, 0.45),
+    0 0 26px rgba(255, 86, 48, 0.28);
+}
+
+/* Neon-ring CTA glow on hover */
+.glow-cta {
+  box-shadow: 0 12px 34px -12px rgba(255, 86, 48, 0.8), 0 0 0 0 rgba(255, 86, 48, 0);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.glow-cta:hover {
+  box-shadow: 0 14px 40px -10px rgba(255, 86, 48, 0.95), 0 0 22px -2px rgba(255, 86, 48, 0.55);
+}
+
+/* Faint brick/tile texture so dark sections read like a pizzeria wall */
+.brick-texture {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.016) 0 1px,
+      transparent 1px 78px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.016) 0 1px,
+      transparent 1px 30px
+    );
+}
+
+/* Dark vignette so hero text/logo stays legible over imagery/video */
+.smoke-overlay {
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    rgba(15, 12, 10, 0.34) 0%,
+    rgba(15, 12, 10, 0.72) 60%,
+    rgba(15, 12, 10, 0.96) 100%
+  );
+}
+
+/* Slow Ken Burns drift on dark hero / section media */
+.kenburns {
+  animation: bp-kenburns 32s ease-in-out infinite alternate;
+  transform-origin: center;
+  will-change: transform;
+}
+@keyframes bp-kenburns {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to { transform: scale(1.14) translate3d(0, -1.5%, 0); }
+}
+
+/* Parallax: useParallax writes --p (0..1 viewport progress); element drifts. */
+.parallax {
+  transform: translate3d(0, calc((var(--p, 0.5) - 0.5) * 2 * var(--p-amt, 28px)), 0);
+  will-change: transform;
+}
+
+/* ---- Scroll-reveal + entrance motion ---------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: bp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .rise-1 { animation-delay: 0.08s; }
+  .rise-2 { animation-delay: 0.2s; }
+  .rise-3 { animation-delay: 0.32s; }
+  .rise-4 { animation-delay: 0.44s; }
+  .rise-5 { animation-delay: 0.56s; }
+  @keyframes bp-rise {
+    from { opacity: 0; transform: translateY(22px); filter: blur(3px); }
+    to { opacity: 1; transform: none; filter: blur(0); }
+  }
+
+  .reveal-ready .reveal,
+  .reveal-ready .reveal-group > * {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+    filter: blur(3px);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
+  }
+  .reveal-ready .reveal.is-visible,
+  .reveal-ready .reveal-group.is-visible > * {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(2) { transition-delay: 0.1s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(3) { transition-delay: 0.2s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(4) { transition-delay: 0.3s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(5) { transition-delay: 0.4s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(6) { transition-delay: 0.5s; }
+
+  .brick-rule {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+  .reveal-ready .reveal.is-visible .brick-rule,
+  .reveal-ready .brick-rule.is-visible {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kenburns, .parallax { animation: none; transform: none; }
+}
