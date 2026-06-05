@@ -6,10 +6,10 @@ import { company } from '../data/site'
 export default function OrderBar() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden">
-      <div className="flex border-t border-line bg-paper-2/95 backdrop-blur-md">
+      <div className="flex border-t-2 border-ink bg-paper-2/97 backdrop-blur-md">
         <a
           href={company.phoneHref}
-          className="flex flex-1 items-center justify-center gap-2 py-3.5 font-cond text-[13px] font-semibold uppercase tracking-[0.14em] text-cream"
+          className="flex flex-1 items-center justify-center gap-2 py-3.5 font-cond text-[13px] font-semibold uppercase tracking-[0.14em] text-ink"
         >
           <Phone size={17} className="text-brick" /> Call
         </a>

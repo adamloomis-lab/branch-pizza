@@ -92,10 +92,10 @@ export default function Menu() {
       </section>
 
       {/* Starters / Salads / Wings */}
-      <section className="steel-panel brick-texture border-y border-line-dark py-20 md:py-28">
-        <div className="container-x grid gap-10 lg:grid-cols-3">
+      <section className="bg-paper-3 py-20 md:py-28">
+        <div className="container-x grid gap-7 lg:grid-cols-3">
           {startersMenu.map((g) => (
-            <div key={g.title} className="rounded-2xl border border-line bg-paper/60 p-7">
+            <div key={g.title} className="card-brut rounded-lg p-7">
               <Group group={g} />
             </div>
           ))}
@@ -112,40 +112,40 @@ export default function Menu() {
       </section>
 
       {/* Full bar */}
-      <section className="steel-panel brick-texture border-t border-line-dark py-20 md:py-28">
+      <section className="bg-paper py-20 md:py-28">
         <div className="container-x">
           <div className="reveal mb-10 text-center">
             <p className="eyebrow">21+ · Dine-in</p>
-            <h2 className="mt-3 font-display text-headline-lg text-cream md:text-[40px]">From the Bar</h2>
+            <h2 className="mt-3 font-display text-headline-lg text-ink md:text-[40px]">From the Bar</h2>
             <span className="brick-rule mx-auto mt-5 block w-[72px]" />
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="reveal rounded-2xl border border-line bg-paper/60 p-7 md:col-span-2">
-              <h3 className="flex items-center gap-2 font-cond text-headline-sm uppercase text-brick-light">
+          <div className="grid gap-7 md:grid-cols-3">
+            <div className="reveal card-brut rounded-lg p-7 md:col-span-2">
+              <h3 className="flex items-center gap-2 font-cond text-headline-sm uppercase text-brick">
                 <Beer size={18} /> Beer
               </h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {barMenu.beer.map((b) => (
-                  <li key={b} className="rounded-full border border-line px-3 py-1.5 text-[13px] text-cream-dim">
+                  <li key={b} className="rounded-full border border-ink/15 px-3 py-1.5 text-[13px] text-ink-soft">
                     {b}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="reveal rounded-2xl border border-line bg-paper/60 p-7">
-              <h3 className="flex items-center gap-2 font-cond text-headline-sm uppercase text-brick-light">
+            <div className="reveal card-brut rounded-lg p-7">
+              <h3 className="flex items-center gap-2 font-cond text-headline-sm uppercase text-brick">
                 <Wine size={18} /> Wine
               </h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {barMenu.wine.map((w) => (
-                  <li key={w} className="rounded-full border border-line px-3 py-1.5 text-[13px] text-cream-dim">
+                  <li key={w} className="rounded-full border border-ink/15 px-3 py-1.5 text-[13px] text-ink-soft">
                     {w}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <p className="mt-8 text-center text-[12px] uppercase tracking-[0.14em] text-cream-faint">
+          <p className="mt-8 text-center text-[12px] uppercase tracking-[0.14em] text-ink-faint">
             Consuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness.
           </p>
         </div>

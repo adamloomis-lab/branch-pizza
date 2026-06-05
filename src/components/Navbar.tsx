@@ -21,7 +21,7 @@ export default function Navbar() {
   const solid = scrolled || open
 
   const linkBase = 'font-cond text-[13px] font-semibold uppercase tracking-[0.16em] transition-colors'
-  const linkColor = solid ? 'text-cream-dim hover:text-brick-light' : 'text-cream hover:text-brick-light'
+  const linkColor = solid ? 'text-ink-soft hover:text-brick' : 'text-cream hover:text-brick-light'
 
   return (
     <header
@@ -32,7 +32,7 @@ export default function Navbar() {
       }`}
     >
       <nav className="container-x flex h-20 items-center justify-between">
-        <Logo className="h-12 sm:h-14" />
+        <Logo onDark={!solid} className="h-12 sm:h-14" />
 
         <div className="hidden items-center gap-8 lg:flex">
           {links.map((l) => {
@@ -50,7 +50,7 @@ export default function Navbar() {
           <a
             href={company.phoneHref}
             className={`inline-flex items-center gap-2 ${linkBase} ${
-              solid ? 'text-cream hover:text-brick-light' : 'text-cream hover:text-brick-light'
+              solid ? 'text-ink hover:text-brick' : 'text-cream hover:text-brick-light'
             }`}
           >
             <Phone size={15} className="text-brick" /> {company.phone}
@@ -68,7 +68,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="text-cream lg:hidden"
+          className={`lg:hidden ${solid ? 'text-ink' : 'text-cream'}`}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
         >
@@ -84,7 +84,7 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="rounded px-2 py-3 font-cond text-sm font-semibold uppercase tracking-[0.16em] text-cream-dim hover:bg-paper-3 hover:text-brick-light"
+                className="rounded px-2 py-3 font-cond text-sm font-semibold uppercase tracking-[0.16em] text-ink-soft hover:bg-paper-3 hover:text-brick"
               >
                 {l.label}
               </Link>

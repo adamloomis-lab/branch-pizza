@@ -30,10 +30,10 @@ export default function CookieBanner() {
   return (
     <div className="fixed inset-x-0 bottom-14 z-50 lg:bottom-0">
       <div className="container-x py-3">
-        <div className="flex flex-col items-center gap-3 rounded-xl border border-line bg-paper-2/97 p-4 shadow-2xl backdrop-blur-md sm:flex-row sm:gap-4">
-          <p className="text-center text-sm text-cream-dim sm:text-left">
+        <div className="card-brut flex flex-col items-center gap-3 rounded-xl p-4 sm:flex-row sm:gap-4">
+          <p className="text-center text-sm text-ink-soft sm:text-left">
             We use cookies to improve your experience on our site. By using branchpizza.com you accept our{' '}
-            <Link href="/privacy" className="text-brick-light underline underline-offset-2 hover:text-brick">
+            <Link href="/privacy" className="text-brick underline underline-offset-2 hover:text-brick-dark">
               Privacy Policy
             </Link>
             .

@@ -19,10 +19,10 @@ const policies = [
 export default function Footer() {
   const year = new Date().getFullYear()
   return (
-    <footer className="steel-panel brick-texture border-t border-line-dark text-cream-dim">
+    <footer className="steel-panel brick-texture border-t-4 border-brick text-cream-dim">
       <div className="container-x grid gap-12 py-16 md:grid-cols-4">
         <div className="md:col-span-1">
-          <Logo className="h-24" />
+          <Logo onDark className="h-24" />
           <p className="mt-5 max-w-xs text-body-md">{company.shortBlurb}</p>
           <div className="mt-5 flex items-center gap-3">
             <a

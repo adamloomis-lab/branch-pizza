@@ -70,34 +70,31 @@ export default function Reviews() {
   }, [])
 
   return (
-    <section className="steel-panel brick-texture border-y border-line-dark py-20 md:py-28">
+    <section className="bg-paper-3 py-20 md:py-28">
       <div className="container-x">
         <div className="reveal mx-auto max-w-2xl text-center">
           <p className="eyebrow">Don’t take our word for it</p>
-          <h2 className="mt-3 font-display text-headline-lg text-cream md:text-[44px]">
+          <h2 className="mt-3 font-display text-headline-lg text-ink md:text-[44px]">
             What People Are Saying
           </h2>
           <div className="mt-5 flex items-center justify-center gap-3">
-            <span className="font-display text-3xl text-cream">{rating.toFixed(1)}</span>
+            <span className="font-display text-3xl text-ink">{rating.toFixed(1)}</span>
             <Stars n={rating} size={18} />
-            <span className="text-cream-dim">{total.toLocaleString()} Google reviews</span>
+            <span className="text-ink-soft">{total.toLocaleString()} Google reviews</span>
           </div>
         </div>
 
-        <div className="reveal-group mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="reveal-group mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {cards.slice(0, 6).map((r, i) => (
-            <figure
-              key={i}
-              className="flex flex-col rounded-xl border border-line bg-card/70 p-6 backdrop-blur-sm"
-            >
+            <figure key={i} className="card-brut flex flex-col rounded-lg p-6">
               <div className="mb-3 flex items-center justify-between">
                 {r.rating != null && <Stars n={r.rating} />}
-                {r.when && <span className="text-xs text-cream-faint">{r.when}</span>}
+                {r.when && <span className="text-xs text-ink-faint">{r.when}</span>}
               </div>
-              <blockquote className="flex-1 text-body-md leading-relaxed text-cream-dim">
+              <blockquote className="flex-1 text-body-md leading-relaxed text-ink-soft">
                 “{r.text}”
               </blockquote>
-              <figcaption className="mt-4 font-cond text-sm font-semibold uppercase tracking-[0.12em] text-cream">
+              <figcaption className="mt-4 font-cond text-sm font-semibold uppercase tracking-[0.12em] text-ink">
                 {r.author}
               </figcaption>
             </figure>
@@ -109,7 +106,7 @@ export default function Reviews() {
             href={mapsUri}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-cond text-sm font-semibold uppercase tracking-[0.14em] text-brick-light hover:text-brick"
+            className="inline-flex items-center gap-1.5 font-cond text-sm font-semibold uppercase tracking-[0.14em] text-brick hover:text-brick-dark"
           >
             Read all reviews on Google <ExternalLink size={14} aria-hidden="true" />
           </a>

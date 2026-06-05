@@ -10,43 +10,43 @@
   --font-script: 'Pacifico', ui-serif, cursive;
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  /* Espresso near-black base, the dark pizzeria mood */
-  --color-paper: #161210;
-  --color-paper-2: #0f0c0a;
-  --color-paper-3: #211a15;
-  --color-card: #1f1813;
+  /* Warm off-white base, the bright pizzeria mood */
+  --color-paper: #f7f3ec;
+  --color-paper-2: #ffffff;
+  --color-paper-3: #efe9df;
+  --color-card: #ffffff;
 
-  /* Warm cream type on the espresso base */
-  --color-ink: #f4e9d8;
-  --color-ink-soft: #cdbda2;
-  --color-ink-faint: #93826b;
+  /* Near-black ink on the light base */
+  --color-ink: #1a1511;
+  --color-ink-soft: #57514a;
+  --color-ink-faint: #8c8478;
 
-  /* Blackened surfaces, dark sections (hero, footer) */
-  --color-steel: #0f0c0a;
-  --color-steel-2: #161210;
-  --color-steel-3: #211a15;
-  --color-steel-4: #2c231b;
+  /* Blackened surfaces for the dark accent bands (hero, daily special, footer) */
+  --color-steel: #14110e;
+  --color-steel-2: #1c1814;
+  --color-steel-3: #26201a;
+  --color-steel-4: #322a21;
 
-  /* NEON, primary accent / CTA, pulled straight from the storefront sign */
-  --color-brick: #ff5630;
-  --color-brick-dark: #e23f1c;
-  --color-brick-light: #ff7a52;
-  --color-on-brick: #1a0d07;
+  /* Pizza red, primary accent / CTA (from the Stitch design) */
+  --color-brick: #e0201e;
+  --color-brick-dark: #b81917;
+  --color-brick-light: #ef4540;
+  --color-on-brick: #ffffff;
 
-  /* Vintage gold, the "EST. 1977" badge accent, sparing secondary */
-  --color-bluetip: #e7b24a;
-  --color-bluetip-light: #f3cd78;
+  /* Vintage gold, review stars + "EST. 1977" badge accent, sparing secondary */
+  --color-bluetip: #e0a32f;
+  --color-bluetip-light: #efc05f;
 
-  /* Cream type on dark surfaces */
-  --color-cream: #f6ecdc;
-  --color-cream-dim: #cbbca4;
-  --color-cream-faint: #98876f;
+  /* Cream type on the dark accent bands */
+  --color-cream: #f7efe2;
+  --color-cream-dim: #cdbda4;
+  --color-cream-faint: #9b8b73;
 
   /* Lines / outlines */
-  --color-line: #36291e;
-  --color-line-dark: #281e16;
+  --color-line: #e4ddd0;
+  --color-line-dark: #2a2118;
 
-  --color-error: #ff5630;
+  --color-error: #e0201e;
 
   /* Type scale */
   --text-display-xl: 92px;
@@ -149,7 +149,7 @@
     letter-spacing: var(--text-label-lg--letter-spacing);
     font-weight: 600;
     text-transform: uppercase;
-    color: var(--color-bluetip);
+    color: var(--color-brick);
   }
 
   /* Thin neon rule under section headings, "draws" in on reveal */
@@ -173,7 +173,7 @@
     height: 0.55rem;
     border-radius: 9999px;
     background-color: var(--color-brick);
-    box-shadow: 0 0 0 3px rgba(255, 86, 48, 0.2), 0 0 10px rgba(255, 86, 48, 0.55);
+    box-shadow: 0 0 0 3px rgba(224, 32, 30, 0.18);
   }
 
   /* Blackened panel for dark sections */
@@ -226,27 +226,42 @@
   }
 }
 
-/* Neon text glow, for the hero wordmark + select accents */
+/* Red accent word in headings (hero "PIZZA", "THE MENU") */
 .neon {
-  color: var(--color-brick-light);
-  text-shadow:
-    0 0 4px rgba(255, 122, 82, 0.85),
-    0 0 14px rgba(255, 86, 48, 0.7),
-    0 0 30px rgba(255, 86, 48, 0.45);
+  color: var(--color-brick);
 }
 .neon-soft {
-  text-shadow:
-    0 0 10px rgba(255, 86, 48, 0.45),
-    0 0 26px rgba(255, 86, 48, 0.28);
+  color: var(--color-brick);
 }
 
-/* Neon-ring CTA glow on hover */
+/* Neo-brutalist card: white panel, hard ink border + offset drop shadow */
+.card-brut {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-ink);
+  box-shadow: 6px 6px 0 0 var(--color-ink);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.card-brut-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 9px 9px 0 0 var(--color-ink);
+}
+
+/* Solid red brutalist callout (phone CTA etc.) */
+.card-red {
+  background-color: var(--color-brick);
+  color: #fff;
+  border: 2px solid var(--color-ink);
+  box-shadow: 6px 6px 0 0 var(--color-ink);
+}
+
+/* Primary CTA: red with a hard offset shadow that "presses" on hover */
 .glow-cta {
-  box-shadow: 0 12px 34px -12px rgba(255, 86, 48, 0.8), 0 0 0 0 rgba(255, 86, 48, 0);
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 4px 4px 0 0 var(--color-ink);
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
 }
 .glow-cta:hover {
-  box-shadow: 0 14px 40px -10px rgba(255, 86, 48, 0.95), 0 0 22px -2px rgba(255, 86, 48, 0.55);
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 0 var(--color-ink);
 }
 
 /* Faint brick/tile texture so dark sections read like a pizzeria wall */

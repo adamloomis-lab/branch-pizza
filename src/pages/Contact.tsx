@@ -40,7 +40,7 @@ export default function Contact() {
   }
 
   const field =
-    'w-full rounded border border-line bg-paper px-4 py-3.5 text-body-md text-ink placeholder:text-ink-faint focus:border-brick focus:outline-none focus:ring-1 focus:ring-brick/40'
+    'w-full rounded border-2 border-line bg-paper-3 px-4 py-3.5 text-body-md text-ink placeholder:text-ink-faint focus:border-brick focus:outline-none'
 
   return (
     <>
@@ -88,17 +88,28 @@ export default function Contact() {
               </li>
             </ul>
 
+            {/* Red "Call Us" callout, matching the Stitch design */}
+            <a href={company.phoneHref} className="card-red mt-8 block rounded-lg p-6">
+              <span className="flex items-center gap-3">
+                <Phone size={22} className="shrink-0" />
+                <span>
+                  <span className="font-display text-2xl uppercase">{company.phone}</span>
+                  <span className="mt-0.5 block text-sm text-white/85">Phone orders always welcome.</span>
+                </span>
+              </span>
+            </a>
+
             <a
               href={company.social.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex h-11 w-11 items-center justify-center rounded border border-line text-ink-soft transition-colors hover:border-brick hover:text-brick"
+              className="mt-6 inline-flex h-11 w-11 items-center justify-center rounded border-2 border-ink text-ink transition-colors hover:bg-brick hover:border-brick hover:text-on-brick"
               aria-label="Branch Pizza on Facebook"
             >
               <Facebook size={18} />
             </a>
 
-            <div className="mt-10 rounded-lg border border-line bg-card p-7">
+            <div className="card-brut mt-10 rounded-lg p-7">
               <div className="flex items-center gap-3">
                 <Clock size={20} className="text-brick" />
                 <h3 className="font-cond text-headline-sm uppercase text-ink">Hours</h3>
@@ -109,7 +120,7 @@ export default function Contact() {
 
           {/* Form */}
           <div className="reveal">
-            <div ref={formCardRef} className="scroll-mt-28 rounded-lg border border-line bg-card p-8 md:p-10">
+            <div ref={formCardRef} className="card-brut scroll-mt-28 rounded-lg p-8 md:p-10">
               <p className="eyebrow">Send a Message</p>
               <h2 className="mt-3 font-cond text-headline-md uppercase text-ink">Get in Touch</h2>
 
@@ -170,7 +181,7 @@ export default function Contact() {
                   )}
                   <button
                     type="submit"
-                    className="w-full rounded bg-brick px-8 py-4 font-cond text-[13px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark"
+                    className="glow-cta w-full rounded border-2 border-ink bg-brick px-8 py-4 font-cond text-[13px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark"
                   >
                     Send Message
                   </button>
