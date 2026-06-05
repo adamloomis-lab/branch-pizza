@@ -22,7 +22,7 @@ export default function Home() {
       {/* ---- HERO ---------------------------------------------------------- */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden">
         <video
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover [filter:brightness(1.15)_saturate(1.08)]"
           autoPlay
           muted
           loop
@@ -32,7 +32,7 @@ export default function Home() {
         >
           <source src="/videos/fresh-slice.mp4" type="video/mp4" />
         </video>
-        <div className="smoke-overlay absolute inset-0" aria-hidden="true" />
+        <div className="hero-overlay absolute inset-0" aria-hidden="true" />
 
         <div className="container-x relative z-10 pt-28 pb-24">
           <div className="max-w-2xl">

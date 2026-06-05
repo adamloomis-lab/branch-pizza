@@ -307,6 +307,45 @@
   );
 }
 
+/* Lighter, directional hero scrim, keeps the headline (left) legible while
+   letting the video show through clearly on the right. Used on the home hero. */
+.hero-overlay {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(12, 10, 8, 0.82) 0%,
+      rgba(12, 10, 8, 0.55) 38%,
+      rgba(12, 10, 8, 0.28) 68%,
+      rgba(12, 10, 8, 0.12) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(12, 10, 8, 0.4) 0%,
+      transparent 26%,
+      transparent 64%,
+      rgba(12, 10, 8, 0.5) 100%
+    );
+}
+@media (max-width: 767px) {
+  /* On mobile the text fills the width, so darken a touch more evenly. */
+  .hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(12, 10, 8, 0.74) 0%,
+        rgba(12, 10, 8, 0.5) 60%,
+        rgba(12, 10, 8, 0.32) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(12, 10, 8, 0.42) 0%,
+        rgba(12, 10, 8, 0.18) 30%,
+        transparent 55%,
+        rgba(12, 10, 8, 0.55) 100%
+      );
+  }
+}
+
 /* Slow Ken Burns drift on dark hero / section media */
 .kenburns {
   animation: bp-kenburns 32s ease-in-out infinite alternate;
