@@ -31,13 +31,9 @@ export const company = {
     facebook: 'https://www.facebook.com/BranchPizza/',
     yelp: 'https://www.yelp.com/biz/branch-pizza-sunbury',
   },
-  // Online ordering. Heartland is the restaurant's own system (no commission),
-  // so it's the primary CTA. DoorDash is offered as a secondary option.
+  // Online ordering, Heartland is the restaurant's own system (no commission).
   order: {
     online: 'https://branchpizzasunbury.hrpos.heartland.us/menu',
-    // NOTE: DoorDash lists the store under its former name "Long Branch Pizza".
-    // Confirm this is the correct store before go-live.
-    doordash: 'https://www.doordash.com/store/long-branch-pizza-sunbury-1454389/',
   },
 } as const
 

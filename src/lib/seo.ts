@@ -156,7 +156,7 @@ const FAQS = [
   },
   {
     q: 'Can I order Branch Pizza online?',
-    a: 'Yes. Order directly through our online menu for pickup, or get it delivered through DoorDash. You can also call us at (740) 965-3383.',
+    a: 'Yes. Order directly through our online menu for pickup, or call us at (740) 965-3383.',
   },
   {
     q: 'What is Branch Pizza known for?',
@@ -220,7 +220,7 @@ export function getPageMeta(rawPath: string): PageMeta {
       return {
         title: 'Menu | Branch Pizza, Sunbury OH, Pizza, Wings, Subs & More',
         description:
-          'See the full Branch Pizza menu, specialty pies, build-your-own pizzas, wings, subs, salads, dinners and a full bar. Order online for pickup or DoorDash delivery in Sunbury, OH.',
+          'See the full Branch Pizza menu, specialty pies, build-your-own pizzas, wings, subs, salads, dinners and a full bar. Order online for pickup or call us in Sunbury, OH.',
         canonical: pageUrl('/menu'),
         ogImage: abs('/images/pepperoni-cup-rack.webp'),
         jsonLd: [

@@ -170,14 +170,9 @@ export default function Home() {
               <Button href={company.order.online} variant="brick" external>
                 <ShoppingBag size={16} /> Order Online
               </Button>
-              <a
-                href={company.order.doordash}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded border-2 border-ink px-5 py-4 font-cond text-[13px] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-paper"
-              >
-                <img src="/images/doordash.webp" alt="" className="h-4 w-4" /> DoorDash Delivery
-              </a>
+              <Button href="/menu" variant="outline">
+                See the Menu
+              </Button>
             </div>
           </div>
         </div>

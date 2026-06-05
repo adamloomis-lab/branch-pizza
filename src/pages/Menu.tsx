@@ -55,16 +55,8 @@ export default function Menu() {
               <ShoppingBag size={16} /> Order Online
             </Button>
             <a
-              href={company.order.doordash}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded border border-cream/25 px-5 py-4 font-cond text-[13px] font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:border-brick hover:bg-cream/5"
-            >
-              <img src="/images/doordash.webp" alt="" className="h-4 w-4" /> DoorDash
-            </a>
-            <a
               href={company.phoneHref}
-              className="inline-flex items-center gap-2 font-cond text-[13px] font-semibold uppercase tracking-[0.14em] text-cream-dim hover:text-cream"
+              className="inline-flex items-center gap-2 font-cond text-[15px] font-semibold uppercase tracking-[0.14em] text-cream-dim hover:text-cream"
             >
               <Phone size={15} className="text-brick-light" /> {company.phone}
             </a>
