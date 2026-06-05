@@ -70,7 +70,7 @@ export default function Reviews() {
   }, [])
 
   return (
-    <section className="bg-paper-3 py-20 md:py-28">
+    <section className="paper-texture section-lift bg-paper-3 py-20 md:py-28">
       <div className="container-x">
         <div className="reveal mx-auto max-w-2xl text-center">
           <p className="eyebrow">Don’t take our word for it</p>
@@ -86,7 +86,7 @@ export default function Reviews() {
 
         <div className="reveal-group mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {cards.slice(0, 6).map((r, i) => (
-            <figure key={i} className="card-brut flex flex-col rounded-lg p-6">
+            <figure key={i} className="card-brut card-brut-hover flex flex-col rounded-lg p-6">
               <div className="mb-3 flex items-center justify-between">
                 {r.rating != null && <Stars n={r.rating} />}
                 {r.when && <span className="text-xs text-ink-faint">{r.when}</span>}

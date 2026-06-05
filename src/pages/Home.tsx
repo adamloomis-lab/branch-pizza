@@ -75,7 +75,7 @@ export default function Home() {
       </section>
 
       {/* ---- AWARD / PILLARS ---------------------------------------------- */}
-      <section className="bg-paper py-20 md:py-28">
+      <section className="paper-texture-soft bg-paper py-20 md:py-28">
         <div className="container-x">
           <div className="reveal mx-auto mb-14 max-w-3xl text-center">
             <p className="kicker inline-flex items-center justify-center gap-2">
@@ -105,7 +105,7 @@ export default function Home() {
       </section>
 
       {/* ---- SIGNATURE PIZZAS --------------------------------------------- */}
-      <section className="bg-paper-3 py-20 md:py-28">
+      <section className="paper-texture section-lift bg-paper-3 py-20 md:py-28">
         <div className="container-x">
           <SectionHeading
             eyebrow="Off the rack"
@@ -187,14 +187,14 @@ export default function Home() {
       <Reviews />
 
       {/* ---- ATMOSPHERE ---------------------------------------------------- */}
-      <section className="bg-paper py-20 md:py-28">
+      <section className="paper-texture-soft bg-paper py-20 md:py-28">
         <div className="container-x grid items-stretch gap-6 md:grid-cols-2">
           <figure className="reveal overflow-hidden rounded-lg border-2 border-ink">
             <img
               src="/images/neon-love-pizza.webp"
               alt={gallery.find((g) => g.src.includes('neon-love'))?.alt}
               loading="lazy"
-              className="h-full min-h-[320px] w-full object-cover"
+              className="kenburns h-full min-h-[320px] w-full object-cover"
             />
           </figure>
           <div className="reveal card-brut flex flex-col justify-center rounded-lg p-9">
@@ -217,7 +217,7 @@ export default function Home() {
       </section>
 
       {/* ---- VISIT / CTA --------------------------------------------------- */}
-      <section className="bg-paper-3 py-20 md:py-28">
+      <section className="paper-texture section-lift bg-paper-3 py-20 md:py-28">
         <div className="container-x grid gap-8 lg:grid-cols-2">
           <div className="reveal">
             <p className="eyebrow">Come see us</p>

@@ -17,31 +17,32 @@ export default function Navbar() {
   const [location] = useLocation()
   const scrolled = useScrolled(40)
 
-  // Solid espresso bar once scrolled (or menu open); translucent over the hero.
+  // Solid light bar once scrolled (or menu open); translucent over the hero.
   const solid = scrolled || open
 
-  const linkBase = 'font-cond text-[13px] font-semibold uppercase tracking-[0.16em] transition-colors'
+  const linkBase =
+    'font-cond text-[16px] font-semibold uppercase tracking-[0.12em] px-2 py-2 transition-colors'
   const linkColor = solid ? 'text-ink-soft hover:text-brick' : 'text-cream hover:text-brick-light'
 
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-colors duration-300 ${
         solid
-          ? 'border-b border-line bg-paper-2/95 backdrop-blur-md'
-          : 'border-b border-transparent bg-gradient-to-b from-black/65 to-transparent'
+          ? 'border-b-2 border-ink bg-paper-2/96 backdrop-blur-md'
+          : 'border-b border-transparent bg-gradient-to-b from-black/70 to-transparent'
       }`}
     >
-      <nav className="container-x flex h-20 items-center justify-between">
-        <Logo onDark={!solid} className="h-12 sm:h-14" />
+      <nav className="container-x flex h-24 items-center justify-between lg:h-28">
+        <Logo onDark={!solid} className="h-16 lg:h-24" />
 
-        <div className="hidden items-center gap-8 lg:flex">
+        <div className="hidden items-center gap-7 lg:flex">
           {links.map((l) => {
             const active = l.href === location
             return (
               <Link
                 key={l.href}
                 href={l.href}
-                className={`${linkBase} ${active ? 'text-brick-light' : linkColor}`}
+                className={`${linkBase} ${active ? 'text-brick' : linkColor}`}
               >
                 {l.label}
               </Link>
@@ -53,13 +54,13 @@ export default function Navbar() {
               solid ? 'text-ink hover:text-brick' : 'text-cream hover:text-brick-light'
             }`}
           >
-            <Phone size={15} className="text-brick" /> {company.phone}
+            <Phone size={17} className="text-brick" /> {company.phone}
           </a>
           <a
             href={company.order.online}
             target="_blank"
             rel="noopener noreferrer"
-            className="glow-cta inline-flex items-center rounded bg-brick px-6 py-3 font-cond text-[12px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark"
+            className="glow-cta inline-flex items-center rounded border-2 border-ink bg-brick px-7 py-4 font-cond text-[15px] font-semibold uppercase tracking-[0.12em] text-on-brick transition-colors hover:bg-brick-dark"
           >
             Order Online
           </a>
@@ -72,35 +73,35 @@ export default function Navbar() {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
         >
-          {open ? <X size={28} /> : <Menu size={28} />}
+          {open ? <X size={34} /> : <Menu size={34} />}
         </button>
       </nav>
 
       {open && (
-        <div className="border-t border-line bg-paper-2 lg:hidden">
+        <div className="border-t-2 border-ink bg-paper-2 lg:hidden">
           <div className="container-x flex flex-col gap-1 py-5">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="rounded px-2 py-3 font-cond text-sm font-semibold uppercase tracking-[0.16em] text-ink-soft hover:bg-paper-3 hover:text-brick"
+                className="rounded px-2 py-4 font-cond text-lg font-semibold uppercase tracking-[0.14em] text-ink-soft hover:bg-paper-3 hover:text-brick"
               >
                 {l.label}
               </Link>
             ))}
             <a
               href={company.phoneHref}
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded border border-brick/45 px-5 py-3 font-cond text-sm font-semibold uppercase tracking-[0.14em] text-brick-light"
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded border-2 border-ink px-5 py-4 font-cond text-base font-semibold uppercase tracking-[0.12em] text-ink"
             >
-              <Phone size={17} /> {company.phone}
+              <Phone size={18} className="text-brick" /> {company.phone}
             </a>
             <a
               href={company.order.online}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center rounded bg-brick px-5 py-3 font-cond text-sm font-semibold uppercase tracking-[0.14em] text-on-brick"
+              className="inline-flex items-center justify-center rounded border-2 border-ink bg-brick px-5 py-4 font-cond text-base font-semibold uppercase tracking-[0.12em] text-on-brick"
             >
               Order Online
             </a>

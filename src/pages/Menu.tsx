@@ -73,7 +73,7 @@ export default function Menu() {
       </section>
 
       {/* Pizzas */}
-      <section className="bg-paper py-20 md:py-28">
+      <section className="paper-texture-soft bg-paper py-20 md:py-28">
         <div className="container-x">
           <div className="mb-12 grid gap-10 lg:grid-cols-2">
             {specialtyPies.map((g) => (
@@ -92,7 +92,7 @@ export default function Menu() {
       </section>
 
       {/* Starters / Salads / Wings */}
-      <section className="bg-paper-3 py-20 md:py-28">
+      <section className="paper-texture section-lift bg-paper-3 py-20 md:py-28">
         <div className="container-x grid gap-7 lg:grid-cols-3">
           {startersMenu.map((g) => (
             <div key={g.title} className="card-brut rounded-lg p-7">

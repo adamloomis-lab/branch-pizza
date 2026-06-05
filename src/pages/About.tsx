@@ -11,7 +11,7 @@ export default function About() {
         <img
           src="/images/storefront-neon-night.webp"
           alt="Branch Pizza storefront glowing at dusk on the Sunbury square"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="kenburns absolute inset-0 h-full w-full object-cover"
         />
         <div className="smoke-overlay absolute inset-0" aria-hidden="true" />
         <div className="container-x relative z-10 pt-40 pb-20 text-center">
@@ -27,7 +27,7 @@ export default function About() {
       </section>
 
       {/* Intro badges */}
-      <section className="bg-paper py-20 md:py-24">
+      <section className="paper-texture-soft bg-paper py-20 md:py-24">
         <div className="container-x grid gap-7 md:grid-cols-3">
           {[
             { icon: MapPin, title: 'On the Square', body: 'Serving downtown Sunbury from 34 S Vernon St since 1977.' },
@@ -46,7 +46,7 @@ export default function About() {
       </section>
 
       {/* Timeline */}
-      <section className="bg-paper-3 py-20 md:py-28">
+      <section className="paper-texture section-lift bg-paper-3 py-20 md:py-28">
         <div className="container-x">
           <SectionHeading eyebrow="How we got here" title="A Slice of History" />
           <div className="mt-14 space-y-10">
@@ -118,9 +118,9 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="bg-paper-3 py-16 text-center">
+      <section className="paper-texture section-lift bg-paper-3 py-16 text-center">
         <div className="container-x">
-          <h2 className="font-display text-headline-lg text-ink md:text-[40px]">Come Taste 1977</h2>
+          <h2 className="font-display text-headline-lg text-ink md:text-[40px]">Come Grab A Slice</h2>
           <p className="mx-auto mt-3 max-w-md text-body-md text-ink-soft">
             {company.addressOneLine} · {company.phone}
           </p>
