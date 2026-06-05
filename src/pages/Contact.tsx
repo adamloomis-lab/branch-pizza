@@ -1,9 +1,46 @@
 import { useState, useRef } from 'react'
 import type { FormEvent } from 'react'
-import { MapPin, Phone, Clock, Facebook, Check, ShoppingBag, ChevronDown } from 'lucide-react'
+import { MapPin, Phone, Clock, Facebook, Check, ShoppingBag, ChevronDown, Plus } from 'lucide-react'
 import { company } from '../data/site'
 import { faqs } from '../lib/seo'
 import HoursList from '../components/HoursList'
+
+// Interactive FAQ accordion, each question is a brutalist card that expands.
+function FaqAccordion() {
+  const [open, setOpen] = useState<number | null>(0)
+  return (
+    <div className="space-y-4">
+      {faqs.map((f, i) => {
+        const isOpen = open === i
+        return (
+          <div key={f.q} className="card-brut overflow-hidden rounded-lg">
+            <button
+              type="button"
+              onClick={() => setOpen(isOpen ? null : i)}
+              aria-expanded={isOpen}
+              className="flex w-full items-center justify-between gap-4 p-5 text-left transition-colors hover:bg-paper-3 sm:p-6"
+            >
+              <span className="font-display text-headline-sm uppercase text-ink">{f.q}</span>
+              <span
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brick text-on-brick transition-transform duration-300 ${
+                  isOpen ? 'rotate-45' : ''
+                }`}
+                aria-hidden="true"
+              >
+                <Plus size={20} />
+              </span>
+            </button>
+            <div className={`grid transition-all duration-300 ease-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+              <div className="overflow-hidden">
+                <p className="border-t-2 border-line px-5 py-5 text-body-md text-ink-soft sm:px-6">{f.a}</p>
+              </div>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
 
 const encode = (data: Record<string, string>) =>
   Object.keys(data)
@@ -47,8 +84,8 @@ export default function Contact() {
       {/* ---------- HEADER ---------- */}
       <section className="relative overflow-hidden">
         <img
-          src="/images/storefront-neon-night.webp"
-          alt="Branch Pizza storefront glowing at dusk on the Sunbury square"
+          src="/images/neon-love-pizza.webp"
+          alt="&quot;All you need is love &amp; pizza&quot; neon sign inside Branch Pizza"
           className="kenburns absolute inset-0 h-full w-full object-cover"
         />
         <div className="smoke-overlay absolute inset-0" aria-hidden="true" />
@@ -199,18 +236,23 @@ export default function Contact() {
       </section>
 
       {/* ---------- FAQ ---------- */}
-      <section className="bg-paper-2 py-20 md:py-24">
+      <section className="paper-texture section-lift bg-paper-3 py-20 md:py-24">
         <div className="container-x max-w-3xl">
-          <h2 className="text-center font-display text-headline-lg text-ink">Good to Know</h2>
-          <span className="brick-rule mx-auto mt-5 block w-[72px]" />
-          <dl className="mt-10 divide-y divide-line">
-            {faqs.map((f) => (
-              <div key={f.q} className="py-5">
-                <dt className="font-cond text-headline-sm uppercase text-ink">{f.q}</dt>
-                <dd className="mt-2 text-body-md text-ink-soft">{f.a}</dd>
-              </div>
-            ))}
-          </dl>
+          <div className="reveal text-center">
+            <p className="eyebrow">Questions?</p>
+            <h2 className="mt-3 font-display text-headline-lg text-ink">Good to Know</h2>
+            <span className="brick-rule mx-auto mt-5 block w-[72px]" />
+          </div>
+          <div className="reveal mt-10">
+            <FaqAccordion />
+          </div>
+          <p className="reveal mt-8 text-center text-body-md text-ink-soft">
+            Still have a question? Give us a call at{' '}
+            <a href={company.phoneHref} className="font-semibold text-brick hover:text-brick-dark">
+              {company.phone}
+            </a>
+            .
+          </p>
         </div>
       </section>
 
