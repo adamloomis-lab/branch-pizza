@@ -63,6 +63,34 @@ export default function About() {
         </div>
       </section>
 
+      {/* Downtown Sunbury aerial */}
+      <section className="paper-texture-soft bg-paper py-20 md:py-28">
+        <div className="container-x">
+          <div className="reveal mx-auto max-w-2xl text-center">
+            <p className="eyebrow">Our hometown</p>
+            <h2 className="mt-3 font-display text-headline-lg text-ink md:text-[40px]">On The Sunbury Square</h2>
+            <span className="brick-rule mx-auto mt-5 block w-[72px]" />
+            <p className="mt-5 text-body-md text-ink-soft">
+              For nearly 50 years we’ve been part of the heart of downtown Sunbury, right on the historic
+              square. Come for the pizza, stay for the small-town charm.
+            </p>
+          </div>
+          <figure className="reveal mt-10 overflow-hidden rounded-lg border-2 border-ink">
+            <img
+              src="/images/downtown-sunbury.webp"
+              alt="Aerial view of downtown Sunbury, Ohio and its historic square"
+              width={1800}
+              height={1199}
+              loading="lazy"
+              className="w-full object-cover"
+            />
+            <figcaption className="bg-ink px-4 py-2.5 text-center font-cond text-[12px] font-semibold uppercase tracking-[0.16em] text-cream">
+              Downtown Sunbury, Ohio
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
       {/* From scratch video band (the long ambient clip) */}
       <section className="bg-paper py-20 md:py-28">
         <div className="container-x grid items-center gap-12 lg:grid-cols-2">
