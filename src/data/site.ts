@@ -1,5 +1,12 @@
 // All site content for Branch Pizza. Single source of truth consumed by pages,
 // components, and the SEO/JSON-LD layer.
+//
+// PRICES are overlaid from pos-prices.json (auto-synced daily from the Heartland
+// POS by scripts/pos-sync). The hand-coded values below are the fallback, so the
+// site always renders correct prices even if a sync hasn't run. See docs/POS-SYNC.md.
+import posPricesRaw from './pos-prices.json'
+
+const posPrices = posPricesRaw as Record<string, unknown>
 
 export const company = {
   name: 'Branch Pizza',
@@ -109,7 +116,7 @@ export type SpecialtyPizza = {
   prices: Partial<Record<PizzaSizeKey, string>>
 }
 
-export const specialtyPizzas: SpecialtyPizza[] = [
+const specialtyPizzasRaw: SpecialtyPizza[] = [
   {
     name: 'Chicago Classic Pie',
     prices: { '10': '16.25', '12': '20.00', '14': '24.50', '16': '28.75', gf: '23.50' },
@@ -207,14 +214,14 @@ export const specialtyPizzas: SpecialtyPizza[] = [
   },
 ]
 
-export const buildYourOwn = {
+const buildYourOwnRaw = {
   prices: { '10': '10.25', '12': '13.50', '14': '15.00', '16': '17.00', gf: '17.25' } as Record<PizzaSizeKey, string>,
   toppings:
     'Mozzarella, provolone, cheddar, shredded parmesan, grated Romano, pepperoni, Old World pepperoni, Italian sausage, pinched Italian sausage, smoked ham, salami, bacon, capicola, homemade meatballs, grilled chicken, onions, red onions, green peppers, broccoli, spinach, mushrooms, banana peppers, green olives, black olives, jalapeños, tomatoes, pineapple and pickles.',
   note: 'Additional charge to add toppings or make it Chicago style.',
 }
 
-export const startersMenu: MenuGroup[] = [
+const startersMenuRaw: MenuGroup[] = [
   {
     title: 'Starters',
     items: [
@@ -281,7 +288,7 @@ export const wingDryRubs = [
   'Caribbean Jerk', 'Sweet Habanero', 'Cajun', 'Chipotle Carolina', 'JJ’s Heat Fixins',
 ]
 
-export const subsMenu: MenuGroup[] = [
+const subsMenuRaw: MenuGroup[] = [
   {
     title: 'Subs',
     items: [
@@ -400,6 +407,38 @@ export const subsMenu: MenuGroup[] = [
     ],
   },
 ]
+
+// ---------------------------------------------------------------------------
+// Price overlay, applies pos-prices.json (keyed by our item name) over the
+// hand-coded defaults above. Object value -> a pizza's size map; string value
+// -> a single/composed price. Missing key -> keep the default.
+// ---------------------------------------------------------------------------
+function pizzaPrices(name: string, fallback: SpecialtyPizza['prices']): SpecialtyPizza['prices'] {
+  const o = posPrices[name]
+  return o && typeof o === 'object' ? (o as SpecialtyPizza['prices']) : fallback
+}
+function applyGroup(g: MenuGroup): MenuGroup {
+  return {
+    ...g,
+    items: g.items.map((it) => {
+      const o = posPrices[it.name]
+      return typeof o === 'string' ? { ...it, price: o } : it
+    }),
+  }
+}
+
+export const specialtyPizzas: SpecialtyPizza[] = specialtyPizzasRaw.map((p) => ({
+  ...p,
+  prices: pizzaPrices(p.name, p.prices),
+}))
+
+export const buildYourOwn = {
+  ...buildYourOwnRaw,
+  prices: (posPrices['Build Your Own'] as Record<PizzaSizeKey, string>) ?? buildYourOwnRaw.prices,
+}
+
+export const startersMenu: MenuGroup[] = startersMenuRaw.map(applyGroup)
+export const subsMenu: MenuGroup[] = subsMenuRaw.map(applyGroup)
 
 // Beer & wine, shown as simple lists (full bar).
 // Each drink carries a style so the menu can color-code and tag it.

@@ -1,0 +1,73 @@
+name: POS price sync
+
+# Mirrors live Heartland POS prices onto the website menu, once a day.
+# If prices changed it commits src/data/pos-prices.json, which triggers the
+# normal Netlify auto-deploy. If nothing changed it's a no-op. See docs/POS-SYNC.md.
+
+on:
+  schedule:
+    - cron: '17 11 * * *' # ~07:17 ET daily
+  workflow_dispatch: {} # allow manual run from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pos-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Sync prices from POS
+        run: node scripts/pos-sync/sync.mjs
+
+      - name: Commit, deploy & notify if prices changed
+        env:
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          POS_SYNC_EMAIL: ${{ secrets.POS_SYNC_EMAIL }}
+          POS_SYNC_FROM: ${{ secrets.POS_SYNC_FROM }}
+        run: |
+          set -e
+          if [ -z "$(git status --porcelain src/data/pos-prices.json)" ]; then
+            echo "No price changes."
+            exit 0
+          fi
+
+          SUMMARY=$(git diff --unified=0 src/data/pos-prices.json \
+            | grep -E '^[+-]' | grep -vE '^[+-]{3}' | sed -E 's/^([+-])  /\1 /' | head -60)
+          echo "Changes:"; echo "$SUMMARY"
+
+          git config user.name "POS Sync Bot"
+          git config user.email "actions@github.com"
+          git add src/data/pos-prices.json
+          printf 'chore(menu): sync prices from POS\n\n%s\n' "$SUMMARY" | git commit -F -
+          git push
+
+          # Belt-and-suspenders: also poke Netlify's build hook if provided.
+          if [ -n "$NETLIFY_BUILD_HOOK" ]; then
+            curl -fsS -X POST -d '{}' "$NETLIFY_BUILD_HOOK" >/dev/null && echo "Triggered Netlify build hook."
+          fi
+
+          # Optional email summary (skipped unless these secrets are set).
+          if [ -n "$RESEND_API_KEY" ] && [ -n "$POS_SYNC_EMAIL" ] && [ -n "$POS_SYNC_FROM" ]; then
+            BODY=$(printf 'Branch Pizza menu prices were updated from the POS:\n\n%s\n\nLive: https://branchpizza.com/menu' "$SUMMARY")
+            JSON=$(jq -n --arg from "$POS_SYNC_FROM" --arg to "$POS_SYNC_EMAIL" \
+              --arg subj "Branch Pizza menu prices updated" --arg text "$BODY" \
+              '{from:$from,to:[$to],subject:$subj,text:$text}')
+            curl -fsS -X POST https://api.resend.com/emails \
+              -H "Authorization: Bearer $RESEND_API_KEY" -H "Content-Type: application/json" \
+              -d "$JSON" >/dev/null && echo "Emailed summary." || echo "Email step failed (non-fatal)."
+          fi

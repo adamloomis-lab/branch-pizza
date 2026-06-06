@@ -4,6 +4,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # playwright is only used by the POS price-sync GitHub Action, never the site
+  # build, so don't download a browser during Netlify installs.
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"
 
 [functions]
   directory = "netlify/functions"
