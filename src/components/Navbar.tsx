@@ -32,8 +32,8 @@ export default function Navbar() {
           : 'border-b border-transparent bg-gradient-to-b from-black/70 to-transparent'
       }`}
     >
-      <nav className="container-x flex h-24 items-center justify-between lg:h-28">
-        <Logo onDark={!solid} className="h-16 lg:h-24" />
+      <nav className="container-x flex h-28 items-center justify-between lg:h-36">
+        <Logo onDark={!solid} className="h-24 lg:h-32" />
 
         <div className="hidden items-center gap-7 lg:flex">
           {links.map((l) => {

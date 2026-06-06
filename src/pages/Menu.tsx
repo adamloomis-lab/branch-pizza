@@ -154,7 +154,7 @@ function SpecialtyPies() {
       </div>
 
       {/* Sticky size picker, the standout interaction */}
-      <div className="sticky top-[88px] z-30 mt-8 border-y-2 border-ink bg-paper-2/96 py-3 backdrop-blur lg:top-[112px]">
+      <div className="sticky top-[112px] z-30 mt-8 border-y-2 border-ink bg-paper-2/96 py-3 backdrop-blur lg:top-[144px]">
         <div className="container-x">
           <p className="mb-2 text-center font-cond text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-faint">
             Choose your size
