@@ -56,6 +56,7 @@ const DRINK_STYLES: Record<string, { c: string; on: string }> = {
   Seasonal: { c: '#3a2a1a', on: '#ffffff' },
   Red: { c: '#8a2330', on: '#ffffff' },
   White: { c: '#d8c77e', on: '#1a1511' },
+  Blush: { c: '#e7a0a8', on: '#1a1511' },
 }
 
 function DrinkTile({ drink, kind }: { drink: Drink; kind: 'beer' | 'wine' }) {

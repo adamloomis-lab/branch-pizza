@@ -127,7 +127,7 @@ export const specialtyPizzas: SpecialtyPizza[] = [
   },
   {
     name: 'Supreme',
-    prices: { '10': '15.25', '12': '18.75', '14': '23.95', '16': '27.00', gf: '21.50' },
+    prices: { '10': '15.75', '12': '18.75', '14': '23.95', '16': '27.00', gf: '21.50' },
     desc: 'Mozzarella, pepperoni, Italian sausage, mushroom, green pepper, onions and grated Romano.',
   },
   {
@@ -163,7 +163,7 @@ export const specialtyPizzas: SpecialtyPizza[] = [
   {
     name: 'Chicken Bacon Ranch',
     prices: { '10': '13.50', '12': '16.75', '14': '20.95', '16': '24.95', gf: '19.75' },
-    desc: 'Creamy ranch base, mozzarella, cheddar, grilled chicken and bacon.',
+    desc: 'Ranch for the sauce, mozzarella, grilled chicken, bacon and grated Romano.',
   },
   {
     name: 'Four Cheese',
@@ -188,17 +188,17 @@ export const specialtyPizzas: SpecialtyPizza[] = [
   {
     name: 'Stingin’ Pep',
     prices: { '10': '14.25', '12': '17.75', '14': '19.50', '16': '21.75', gf: '17.75' },
-    desc: 'Mozzarella, original pepperoni and a drizzle of hot honey, sweet heat in every bite.',
+    desc: 'Signature red sauce and mozzarella topped with a generous layer of crispy pepperoni, a bold drizzle of stingin’ honey garlic and a sprinkle of crushed red pepper flakes for the perfect kick.',
   },
   {
     name: 'Pickleback Pie',
-    prices: { '10': '14.25', '12': '17.75', '14': '19.50', '16': '21.75', gf: '17.75' },
-    desc: 'Garlic butter sauce, mozzarella, dill pickles and a ranch drizzle.',
+    prices: { '10': '14.25', '12': '17.75', '14': '19.50', '16': '21.75', gf: '17.25' },
+    desc: 'Drizzled with garlic butter and cool ranch, then loaded with mozzarella and crowned with zesty pickle slices.',
   },
   {
     name: 'Tomozzarella',
-    prices: { '10': '14.25', '12': '17.75', '14': '19.50', '16': '21.75', gf: '17.75' },
-    desc: 'Mozzarella, fresh tomato and grated Romano, simple and fresh.',
+    prices: { '10': '14.25', '12': '17.75', '14': '19.50', '16': '21.75', gf: '17.25' },
+    desc: 'A buttery garlic crust layered with vine-ripened Roma tomatoes and covered in melty mozzarella.',
   },
   {
     name: 'Kibler Special',
@@ -232,12 +232,12 @@ export const startersMenu: MenuGroup[] = [
       { name: 'Side of Fries', price: '4.50' },
       { name: 'Meatball (plain)', price: '3.00' },
       { name: 'Meatball with Pizza Sauce & Mozzarella', price: '4.75' },
-      { name: 'Chips', price: '1.25' },
+      { name: 'Chips', price: '1.30' },
     ],
   },
   {
     title: 'Salads',
-    note: 'Served with your choice of dressing. Extra dressing available. Add grilled chicken: small $2.00, large $2.85.',
+    note: 'Served with your choice of dressing. Extra dressing available. Add grilled chicken: small $2.00, large $2.60.',
     items: [
       {
         name: 'House Salad',
@@ -246,7 +246,7 @@ export const startersMenu: MenuGroup[] = [
       },
       {
         name: 'Caesar Salad',
-        price: 'Small 6.50 · Large 7.50',
+        price: 'Small 6.25 · Large 8.50',
         desc: 'Romaine lettuce, shredded parmesan, croutons and creamy Caesar dressing.',
       },
       {
@@ -263,7 +263,7 @@ export const startersMenu: MenuGroup[] = [
       { name: 'Traditional Wings', price: '10 pc 19.75 · 20 pc 35.50' },
       { name: 'Flats', price: '10 pc 21.25 · 20 pc 37.00' },
       { name: 'Drummies', price: '10 pc 21.25 · 20 pc 37.00' },
-      { name: 'Boneless Wings', price: '12 pc 16.25 · 24 pc 31.25' },
+      { name: 'Boneless Wings', price: '12 pc 16.75 · 24 pc 31.25' },
     ],
   },
 ]
@@ -340,20 +340,20 @@ export const subsMenu: MenuGroup[] = [
         price: '9.50',
         desc: 'Mushrooms, green peppers, onions, provolone, black olives, lettuce, tomatoes and Italian dressing.',
       },
-      { name: 'BLT Sub', price: '9.00', desc: 'Bacon, provolone, lettuce, tomato and mayo.' },
+      { name: 'BLT Sub', price: '9.50', desc: 'Bacon, provolone, lettuce, tomato and mayo.' },
     ],
   },
   {
     title: 'Dinners',
     items: [
-      { name: 'Lasagna Dinner', price: '15.00', desc: 'Served with garlic bread and side salad.' },
-      { name: 'Lasagna', price: '9.00' },
+      { name: 'Lasagna Dinner', price: '14.00', desc: 'Served with garlic bread and side salad.' },
+      { name: 'Lasagna', price: '8.00' },
       {
         name: 'Spaghetti & Meatball Dinner',
-        price: '15.00',
+        price: '14.00',
         desc: 'Served with garlic bread and side salad.',
       },
-      { name: 'Spaghetti & Meatball', price: '9.00' },
+      { name: 'Spaghetti & Meatball', price: '8.00' },
       { name: 'Chicken Tenders with Fries', price: '11.25' },
     ],
   },
@@ -361,37 +361,42 @@ export const subsMenu: MenuGroup[] = [
     title: 'Specials',
     items: [
       {
-        name: 'Lunch Special',
-        price: '10.00',
-        desc: 'Sub of choice, chips and a can of Coke.',
-      },
-      {
-        name: 'Dinner Special',
-        price: '32.75',
-        desc: '16″ one-topping pizza, 2 Italian subs and a 2-liter of choice.',
+        name: 'Family Special',
+        price: '34.50',
+        desc: 'A 16″ one-topping pizza served with 2 Italian subs and your choice of 2-liter.',
       },
     ],
   },
   {
     title: 'Dessert',
     items: [
-      { name: 'Chocolate Brownie Cheesecake' },
-      { name: 'Blueberry Cheesecake' },
-      { name: "Choc’Late Lovin’ Spoon Cake" },
+      { name: 'Chocolate Brownie Cheesecake', price: '5.75' },
+      { name: 'Blueberry Cheesecake', price: '5.75' },
+      { name: 'Cookies', price: '3.25' },
     ],
   },
   {
     title: 'Beverages',
     note: 'Coke products.',
     items: [
-      { name: '2-Liter of Pop', price: '3.40' },
-      { name: 'Can of Pop', price: '1.40' },
       {
-        name: 'Fountain Pop',
-        price: '2.40',
-        desc: 'Coke, Diet Coke, Cherry Coke, Barq’s Root Beer, Sprite & lemonade. Free refills.',
+        name: 'Fountain Drink',
+        price: '2.70',
+        desc: 'Coke, Diet Coke, Cherry Coke, Sprite, Barq’s Root Beer or lemonade.',
       },
-      { name: 'Gold Peak Iced Tea', price: '2.90', desc: 'Sweet or unsweetened.' },
+      {
+        name: '2-Liter',
+        price: '3.99',
+        desc: 'Coke, Diet Coke, Coke Zero, Sprite, Orange Fanta or Barq’s Root Beer.',
+      },
+      {
+        name: 'Canned Pop',
+        price: '1.99',
+        desc: 'Coke, Diet Coke, Coke Zero, Sprite, Barq’s or Orange Fanta.',
+      },
+      { name: 'Iced Tea', price: '3.50' },
+      { name: 'Red Bull', price: '3.50' },
+      { name: 'Dasani Water', price: '3.00', desc: '20 oz.' },
     ],
   },
 ]
@@ -424,6 +429,7 @@ export const barMenu: { beer: Drink[]; wine: Drink[] } = {
   wine: [
     { name: 'Pinot Noir', style: 'Red' },
     { name: 'Pinot Grigio', style: 'White' },
+    { name: 'Sutter Home White Zinfandel', style: 'Blush' },
   ],
 }
 
