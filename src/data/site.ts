@@ -509,6 +509,16 @@ export const reviews = [
     quote:
       'Delicious food and great service! We ordered a large pepperoni pizza, lasagna dinner and mozzarella sticks. Will definitely go again.',
   },
+  {
+    name: 'Steve Newbauer',
+    rating: 5,
+    quote: 'Fantastic pies, try the homemade hot honey!',
+  },
+  {
+    name: 'Scott Harvey',
+    rating: 5,
+    quote: 'Delicious pizza, great service. Local favorite!',
+  },
 ]
 
 // ---------------------------------------------------------------------------

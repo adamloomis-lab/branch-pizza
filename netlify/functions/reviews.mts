@@ -64,18 +64,57 @@ export default async (req: Request): Promise<Response> => {
   if (!res.ok) return json({ error: 'details failed', reviews: [] }, 502)
   const p = (await res.json()) as PlaceDetails
 
-  const reviews = (p.reviews ?? [])
-    .slice(0, 5)
-    .map((r) => ({
-      author: r.authorAttribution?.displayName ?? 'Google user',
-      photo: r.authorAttribution?.photoUri ?? '',
-      profileUrl: r.authorAttribution?.uri ?? '',
-      rating: r.rating ?? null,
-      text: (r.text?.text ?? r.originalText?.text ?? '').trim(),
-      when: r.relativePublishTimeDescription ?? '',
-      time: r.publishTime ?? '',
-    }))
+  type Out = { author: string; photo: string; profileUrl: string; rating: number | null; text: string; when: string; time: string }
+
+  // "Most relevant" reviews from the Places API (New) — caps at 5.
+  const relevant: Out[] = (p.reviews ?? []).map((r) => ({
+    author: r.authorAttribution?.displayName ?? 'Google user',
+    photo: r.authorAttribution?.photoUri ?? '',
+    profileUrl: r.authorAttribution?.uri ?? '',
+    rating: r.rating ?? null,
+    text: (r.text?.text ?? r.originalText?.text ?? '').trim(),
+    when: r.relativePublishTimeDescription ?? '',
+    time: r.publishTime ?? '',
+  }))
+
+  // "Newest" reviews from the legacy endpoint — a different set, so merging both
+  // yields more than the 5-review cap. Best-effort; ignored if it fails.
+  let newest: Out[] = []
+  try {
+    const legacyUrl =
+      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(id)}` +
+      `&fields=reviews&reviews_sort=newest&reviews_no_translations=true&key=${KEY}`
+    const lr = await fetch(legacyUrl)
+    if (lr.ok) {
+      const ld = (await lr.json()) as {
+        result?: { reviews?: Array<{ author_name?: string; profile_photo_url?: string; author_url?: string; rating?: number; text?: string; relative_time_description?: string; time?: number }> }
+      }
+      newest = (ld.result?.reviews ?? []).map((r) => ({
+        author: r.author_name ?? 'Google user',
+        photo: r.profile_photo_url ?? '',
+        profileUrl: r.author_url ?? '',
+        rating: r.rating ?? null,
+        text: (r.text ?? '').trim(),
+        when: r.relative_time_description ?? '',
+        time: r.time ? new Date(r.time * 1000).toISOString() : '',
+      }))
+    }
+  } catch {
+    /* legacy optional */
+  }
+
+  // Merge both sources, dedupe by author + text prefix, keep up to 8 (the UI
+  // shows 6, so a full desktop 3x2 grid).
+  const seen = new Set<string>()
+  const reviews = [...relevant, ...newest]
     .filter((r) => r.text)
+    .filter((r) => {
+      const k = `${r.author.toLowerCase()}|${r.text.slice(0, 30).toLowerCase()}`
+      if (seen.has(k)) return false
+      seen.add(k)
+      return true
+    })
+    .slice(0, 8)
 
   return json({
     configured: true,
