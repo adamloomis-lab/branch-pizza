@@ -57,7 +57,16 @@ export default function Reviews() {
       .then((d: ReviewsResponse) => {
         if (cancelled || !d || d.configured === false || !d.found) return
         if (d.reviews && d.reviews.length) {
-          setCards(d.reviews.map((r) => ({ author: r.author, rating: r.rating, text: r.text, when: r.when })))
+          const live: Card[] = d.reviews.map((r) => ({ author: r.author, rating: r.rating, text: r.text, when: r.when }))
+          // Top up with curated reviews (deduped) so we always have a full 3x2
+          // grid even if a source returns fewer than 6.
+          const seen = new Set(live.map((c) => c.author.toLowerCase()))
+          const merged = [...live]
+          for (const c of initialCards) {
+            if (merged.length >= 6) break
+            if (!seen.has(c.author.toLowerCase())) merged.push(c)
+          }
+          setCards(merged)
         }
         if (typeof d.rating === 'number') setRating(d.rating)
         if (typeof d.total === 'number') setTotal(d.total)
