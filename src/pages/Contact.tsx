@@ -77,7 +77,7 @@ export default function Contact() {
   }
 
   const field =
-    'w-full rounded border-2 border-line bg-paper-3 px-4 py-3.5 text-body-md text-ink placeholder:text-ink-faint focus:border-brick focus:outline-none'
+    'w-full rounded border-2 border-line bg-paper-3 px-4 py-3.5 text-body-md text-ink placeholder:text-ink-faint focus:border-brick focus-visible:outline-none'
 
   return (
     <>
@@ -196,12 +196,20 @@ export default function Contact() {
                     </label>
                   </p>
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <input className={field} type="text" name="name" placeholder="Name" required />
-                    <input className={field} type="tel" name="phone" placeholder="Phone" />
+                    <div>
+                      <label htmlFor="contact-name" className="sr-only">Name</label>
+                      <input id="contact-name" className={field} type="text" name="name" placeholder="Name" required />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-phone" className="sr-only">Phone</label>
+                      <input id="contact-phone" className={field} type="tel" name="phone" placeholder="Phone" />
+                    </div>
                   </div>
-                  <input className={field} type="email" name="email" placeholder="Email" required />
+                  <label htmlFor="contact-email" className="sr-only">Email</label>
+                  <input id="contact-email" className={field} type="email" name="email" placeholder="Email" required />
                   <div className="relative">
-                    <select name="subject" defaultValue="" required className={`${field} appearance-none pr-11`}>
+                    <label htmlFor="contact-subject" className="sr-only">What can we help with?</label>
+                    <select id="contact-subject" name="subject" defaultValue="" required className={`${field} appearance-none pr-11`}>
                       <option value="" disabled>
                         What can we help with?
                       </option>
@@ -215,7 +223,8 @@ export default function Contact() {
                       className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-faint"
                     />
                   </div>
-                  <textarea className={field} name="message" rows={5} placeholder="How can we help?" required />
+                  <label htmlFor="contact-message" className="sr-only">Message</label>
+                  <textarea id="contact-message" className={field} name="message" rows={5} placeholder="How can we help?" required />
                   {error && (
                     <p className="text-body-md text-error">
                       Oops, there was an error sending your message. Please try again later, or call{' '}

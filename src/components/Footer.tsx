@@ -39,9 +39,8 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-10 items-center gap-2 rounded border border-line-dark px-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:border-brick hover:text-brick-light"
-              aria-label="Branch Pizza on Yelp"
             >
-              <Star size={14} className="text-bluetip" /> Yelp
+              <Star size={14} className="text-bluetip" aria-hidden="true" /> Yelp
             </a>
           </div>
         </div>

@@ -19,7 +19,7 @@
   /* Near-black ink on the light base */
   --color-ink: #1a1511;
   --color-ink-soft: #57514a;
-  --color-ink-faint: #8c8478;
+  --color-ink-faint: #6b6560;
 
   /* Blackened surfaces for the dark accent bands (hero, daily special, footer) */
   --color-steel: #14110e;
@@ -412,4 +412,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .kenburns, .parallax { animation: none; transform: none; }
+}
+
+/* WCAG 2.4.7 keyboard focus */
+*:focus-visible {
+  outline: 2px solid var(--color-brick);
+  outline-offset: 3px;
 }
