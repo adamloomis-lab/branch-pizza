@@ -48,21 +48,21 @@ export const company = {
 // Hours. dow matches Date.getDay() (0 = Sun).
 // ---------------------------------------------------------------------------
 export const hours = [
-  { day: 'Sunday', short: 'Sun', dow: 0, time: '4:00 – 9:00 pm' },
-  { day: 'Monday', short: 'Mon', dow: 1, time: '4:00 – 9:00 pm' },
-  { day: 'Tuesday', short: 'Tue', dow: 2, time: '11:00 am – 9:00 pm' },
-  { day: 'Wednesday', short: 'Wed', dow: 3, time: '11:00 am – 9:00 pm' },
-  { day: 'Thursday', short: 'Thu', dow: 4, time: '11:00 am – 9:00 pm' },
-  { day: 'Friday', short: 'Fri', dow: 5, time: '11:00 am – 10:00 pm' },
-  { day: 'Saturday', short: 'Sat', dow: 6, time: '4:00 – 10:00 pm' },
+  { day: 'Sunday', short: 'Sun', dow: 0, time: '4:00 - 9:00 pm' },
+  { day: 'Monday', short: 'Mon', dow: 1, time: '4:00 - 9:00 pm' },
+  { day: 'Tuesday', short: 'Tue', dow: 2, time: '11:00 am - 9:00 pm' },
+  { day: 'Wednesday', short: 'Wed', dow: 3, time: '11:00 am - 9:00 pm' },
+  { day: 'Thursday', short: 'Thu', dow: 4, time: '11:00 am - 9:00 pm' },
+  { day: 'Friday', short: 'Fri', dow: 5, time: '11:00 am - 10:00 pm' },
+  { day: 'Saturday', short: 'Sat', dow: 6, time: '4:00 - 10:00 pm' },
 ]
 
 export const hoursCompact = [
-  { day: 'Mon', time: '4 – 9 pm' },
-  { day: 'Tue – Thu', time: '11 am – 9 pm' },
-  { day: 'Fri', time: '11 am – 10 pm' },
-  { day: 'Sat', time: '4 – 10 pm' },
-  { day: 'Sun', time: '4 – 9 pm' },
+  { day: 'Mon', time: '4 - 9 pm' },
+  { day: 'Tue - Thu', time: '11 am - 9 pm' },
+  { day: 'Fri', time: '11 am - 10 pm' },
+  { day: 'Sat', time: '4 - 10 pm' },
+  { day: 'Sun', time: '4 - 9 pm' },
 ]
 
 // Schema.org openingHoursSpecification

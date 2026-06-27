@@ -187,7 +187,7 @@ export function menuSchema() {
 const FAQS = [
   {
     q: 'What are Branch Pizza’s hours?',
-    a: 'We’re open Monday 4–9pm, Tuesday through Thursday 11am–9pm, Friday 11am–10pm, Saturday 4–10pm, and Sunday 4–9pm.',
+    a: 'We’re open Monday 4-9pm, Tuesday through Thursday 11am-9pm, Friday 11am-10pm, Saturday 4-10pm, and Sunday 4-9pm.',
   },
   {
     q: 'Where is Branch Pizza located?',
