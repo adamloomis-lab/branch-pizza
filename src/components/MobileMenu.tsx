@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'wouter'
 import { X, Phone, MapPin, Clock, ArrowRight, Facebook } from 'lucide-react'
 import { company } from '../data/site'
@@ -18,9 +19,15 @@ export default function MobileMenu({ open, onClose, links }: MobileMenuProps) {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden'
-      const id = requestAnimationFrame(() => setShown(true))
+      // Double rAF: ensure the panel mounts in its hidden (off-screen) state and
+      // is painted once before we flip to `shown`, so the slide transition runs.
+      let id2 = 0
+      const id1 = requestAnimationFrame(() => {
+        id2 = requestAnimationFrame(() => setShown(true))
+      })
       return () => {
-        cancelAnimationFrame(id)
+        cancelAnimationFrame(id1)
+        cancelAnimationFrame(id2)
         document.body.style.overflow = ''
       }
     }
@@ -28,9 +35,25 @@ export default function MobileMenu({ open, onClose, links }: MobileMenuProps) {
     document.body.style.overflow = ''
   }, [open])
 
-  if (!open) return null
+  // Close on Escape for keyboard users.
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open, onClose])
 
-  return (
+  if (!open) return null
+  // SSR guard — document only exists in the browser.
+  if (typeof document === 'undefined') return null
+
+  // IMPORTANT: render at document.body via portal so the panel's `position: fixed`
+  // escapes the header's containing block. The header applies `backdrop-filter`
+  // (backdrop-blur-md) once scrolled/solid, which makes it a containing block for
+  // fixed descendants — that trapped the full-screen menu to the header strip.
+  return createPortal(
     <div className="lg:hidden fixed inset-0 z-[60]">
       {/* Backdrop */}
       <button
@@ -74,8 +97,8 @@ export default function MobileMenu({ open, onClose, links }: MobileMenuProps) {
                 key={l.href}
                 href={l.href}
                 onClick={onClose}
-                className={`group flex items-center justify-between border-b border-cream/10 py-4 font-display text-[30px] uppercase leading-none text-cream/90 transition-all duration-500 hover:text-brick-light ${
-                  shown ? 'translate-x-0 opacity-100' : 'translate-x-6 opacity-0'
+                className={`group flex items-center justify-between border-b border-cream/10 py-4 font-display text-[30px] uppercase leading-none text-cream/90 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none hover:text-brick-light ${
+                  shown ? 'translate-x-0' : 'translate-x-6'
                 }`}
                 style={{ transitionDelay: `${120 + i * 70}ms` }}
               >
@@ -89,8 +112,8 @@ export default function MobileMenu({ open, onClose, links }: MobileMenuProps) {
           </nav>
 
           <div
-            className={`mt-8 flex flex-col gap-3 transition-all duration-500 ${
-              shown ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+            className={`mt-8 flex flex-col gap-3 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+              shown ? 'translate-y-0' : 'translate-y-4'
             }`}
             style={{ transitionDelay: `${120 + links.length * 70 + 60}ms` }}
           >
@@ -134,6 +157,7 @@ export default function MobileMenu({ open, onClose, links }: MobileMenuProps) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
