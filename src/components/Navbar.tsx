@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'wouter'
-import { Menu, X, Phone } from 'lucide-react'
+import { Menu, Phone } from 'lucide-react'
 import Logo from './Logo'
+import MobileMenu from './MobileMenu'
 import { company } from '../data/site'
 import { useScrolled } from '../hooks/useScrolled'
 
@@ -68,46 +69,16 @@ export default function Navbar() {
 
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen(true)}
           className={`lg:hidden ${solid ? 'text-ink' : 'text-cream'}`}
-          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-label="Open menu"
           aria-expanded={open}
         >
-          {open ? <X size={34} /> : <Menu size={34} />}
+          <Menu size={34} />
         </button>
       </nav>
 
-      {open && (
-        <div className="border-t-2 border-ink bg-paper-2 lg:hidden">
-          <div className="container-x flex flex-col gap-1 py-5">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="rounded px-2 py-4 font-cond text-lg font-semibold uppercase tracking-[0.14em] text-ink-soft hover:bg-paper-3 hover:text-brick"
-              >
-                {l.label}
-              </Link>
-            ))}
-            <a
-              href={company.phoneHref}
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded border-2 border-ink px-5 py-4 font-cond text-base font-semibold uppercase tracking-[0.12em] text-ink"
-            >
-              <Phone size={18} className="text-brick" /> {company.phone}
-            </a>
-            <a
-              href={company.order.online}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center rounded border-2 border-ink bg-brick px-5 py-4 font-cond text-base font-semibold uppercase tracking-[0.12em] text-on-brick"
-            >
-              Order Online
-            </a>
-          </div>
-        </div>
-      )}
+      <MobileMenu open={open} onClose={() => setOpen(false)} links={links} />
     </header>
   )
 }
