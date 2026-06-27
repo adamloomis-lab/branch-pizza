@@ -1,9 +1,13 @@
 import { useState, useRef } from 'react'
-import type { FormEvent } from 'react'
-import { MapPin, Phone, Clock, Facebook, Check, ShoppingBag, ChevronDown, Plus } from 'lucide-react'
+import type { ChangeEvent, FormEvent, ComponentType } from 'react'
+import {
+  MapPin, Phone, Clock, Facebook, ShoppingBag, Plus,
+  HelpCircle, Users, PartyPopper, MessageCircle, Loader2,
+} from 'lucide-react'
 import { company } from '../data/site'
 import { faqs } from '../lib/seo'
 import HoursList from '../components/HoursList'
+import { FloatField, SuccessCheck } from '../components/FluidField'
 
 // Interactive FAQ accordion, each question is a brutalist card that expands.
 function FaqAccordion() {
@@ -47,37 +51,56 @@ const encode = (data: Record<string, string>) =>
     .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`)
     .join('&')
 
+// Single-select icon cards for "What can we help with?". The submitted `value`
+// is identical to the old <select> options so the Netlify form data is unchanged.
+const SUBJECT_OPTIONS: { value: string; label: string; icon: ComponentType<{ size?: number; className?: string }> }[] = [
+  { value: 'General Question', label: 'General question', icon: HelpCircle },
+  { value: 'Large / Group Order', label: 'Large / group order', icon: Users },
+  { value: 'Private Event', label: 'Private event', icon: PartyPopper },
+  { value: 'Feedback', label: 'Feedback', icon: MessageCircle },
+]
+
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    subject: '',
+    message: '',
+  })
   const [sent, setSent] = useState(false)
   const [error, setError] = useState(false)
+  const [sending, setSending] = useState(false)
   const [firstName, setFirstName] = useState('')
   const formCardRef = useRef<HTMLDivElement>(null)
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(false)
-    const form = e.currentTarget
-    const data = Object.fromEntries(new FormData(form) as never) as Record<string, string>
+    setSending(true)
     try {
       const res = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({ 'form-name': 'contact', ...data }),
+        body: encode({ 'form-name': 'contact', ...formData }),
       })
       if (!res.ok) throw new Error()
-      setFirstName((data.name || '').trim().split(/\s+/)[0] || '')
+      setFirstName(formData.name.trim().split(/\s+/)[0] || '')
       setSent(true)
-      form.reset()
+      setFormData({ name: '', phone: '', email: '', subject: '', message: '' })
       requestAnimationFrame(() =>
         formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }),
       )
     } catch {
       setError(true)
+    } finally {
+      setSending(false)
     }
   }
-
-  const field =
-    'w-full rounded border-2 border-line bg-paper-3 px-4 py-3.5 text-body-md text-ink placeholder:text-ink-faint focus:border-brick focus-visible:outline-none'
 
   return (
     <>
@@ -169,16 +192,29 @@ export default function Contact() {
 
               {sent ? (
                 <div className="mt-8 flex flex-col items-center gap-4 rounded-lg border border-brick/40 bg-brick/5 px-6 py-12 text-center">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brick text-on-brick">
-                    <Check size={28} />
+                  <span
+                    className="flex h-20 w-20 items-center justify-center"
+                    style={{ animation: 'pop 0.5s cubic-bezier(0.34,1.56,0.64,1) both' }}
+                  >
+                    <SuccessCheck />
                   </span>
                   <p className="font-cond text-headline-md uppercase text-ink">
-                    Thanks{firstName ? `, ${firstName}` : ''}!
+                    Thank You{firstName ? `, ${firstName}` : ''}!
                   </p>
-                  <p className="text-body-md text-ink-soft">
+                  <p className="max-w-md text-body-md text-ink-soft">
                     Your message is on its way to Branch Pizza. We&rsquo;ll get back to you as soon as we
-                    can. For a faster reply, give us a call at {company.phone}.
+                    can. For a faster reply, give us a call.
                   </p>
+                  <a
+                    href={company.phoneHref}
+                    className="group relative mt-1 inline-flex items-center gap-2 overflow-hidden rounded border-2 border-ink bg-brick px-7 py-3.5 font-cond text-[13px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/30 blur-md group-hover:[animation:sheen_0.9s_ease]"
+                    />
+                    <Phone size={16} /> {company.phone}
+                  </a>
                 </div>
               ) : (
                 <form
@@ -195,36 +231,46 @@ export default function Contact() {
                       Don’t fill this out: <input name="bot-field" />
                     </label>
                   </p>
+                  {/* Mirror the icon-card selection for Netlify form-field detection. */}
+                  <input type="hidden" name="subject" value={formData.subject} />
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <label htmlFor="contact-name" className="sr-only">Name</label>
-                      <input id="contact-name" className={field} type="text" name="name" placeholder="Name" required />
-                    </div>
-                    <div>
-                      <label htmlFor="contact-phone" className="sr-only">Phone</label>
-                      <input id="contact-phone" className={field} type="tel" name="phone" placeholder="Phone" />
-                    </div>
+                    <FloatField name="name" label="Name" idPrefix="contact" value={formData.name} onChange={handleChange} required />
+                    <FloatField name="phone" label="Phone" type="tel" idPrefix="contact" value={formData.phone} onChange={handleChange} />
                   </div>
-                  <label htmlFor="contact-email" className="sr-only">Email</label>
-                  <input id="contact-email" className={field} type="email" name="email" placeholder="Email" required />
-                  <div className="relative">
-                    <label htmlFor="contact-subject" className="sr-only">What can we help with?</label>
-                    <select id="contact-subject" name="subject" defaultValue="" required className={`${field} appearance-none pr-11`}>
-                      <option value="" disabled>
-                        What can we help with?
-                      </option>
-                      <option>General Question</option>
-                      <option>Large / Group Order</option>
-                      <option>Private Event</option>
-                      <option>Feedback</option>
-                    </select>
-                    <ChevronDown
-                      size={18}
-                      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-faint"
-                    />
-                  </div>
-                  <label htmlFor="contact-message" className="sr-only">Message</label>
-                  <textarea id="contact-message" className={field} name="message" rows={5} placeholder="How can we help?" required />
+                  <FloatField name="email" label="Email" type="email" idPrefix="contact" value={formData.email} onChange={handleChange} required />
+
+                  {/* What can we help with? — single-select icon cards. */}
+                  <fieldset className="pt-1">
+                    <legend className="mb-2.5 block font-cond text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+                      What can we help with? <span className="text-brick">*</span>
+                    </legend>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {SUBJECT_OPTIONS.map((o) => {
+                        const active = formData.subject === o.value
+                        const Icon = o.icon
+                        return (
+                          <button
+                            key={o.value}
+                            type="button"
+                            aria-pressed={active}
+                            onClick={() =>
+                              setFormData((prev) => ({ ...prev, subject: active ? '' : o.value }))
+                            }
+                            className={`flex flex-col items-start gap-2 rounded border-2 px-3.5 py-3.5 text-left font-body transition-all duration-200 active:scale-[0.98] ${
+                              active
+                                ? 'border-ink bg-brick text-on-brick shadow-[4px_4px_0_0_var(--color-ink)]'
+                                : 'border-line bg-paper-3 text-ink hover:border-brick hover:bg-paper-2'
+                            }`}
+                          >
+                            <Icon size={22} className={active ? 'text-on-brick' : 'text-brick'} />
+                            <span className="text-body-md font-medium leading-tight">{o.label}</span>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </fieldset>
+
+                  <FloatField name="message" label="How can we help?" idPrefix="contact" value={formData.message} onChange={handleChange} required textarea rows={5} />
                   {error && (
                     <p className="text-body-md text-error">
                       Oops, there was an error sending your message. Please try again later, or call{' '}
@@ -233,9 +279,20 @@ export default function Contact() {
                   )}
                   <button
                     type="submit"
-                    className="glow-cta w-full rounded border-2 border-ink bg-brick px-8 py-4 font-cond text-[13px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark"
+                    disabled={sending || !formData.subject}
+                    className="glow-cta group relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded border-2 border-ink bg-brick px-8 py-4 font-cond text-[13px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    Send Message
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/30 blur-md group-hover:[animation:sheen_0.9s_ease]"
+                    />
+                    {sending ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" /> Sending
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
                   </button>
                 </form>
               )}

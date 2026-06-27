@@ -48,6 +48,10 @@
 
   --color-error: #e0201e;
 
+  /* Floating-CTA motion + premium accent shadow (D&D pattern) */
+  --shadow-accent: 0 10px 30px rgba(224, 32, 30, 0.3);
+  --animate-glow-pulse: glow-pulse 2.6s ease-in-out infinite;
+
   /* Type scale */
   --text-display-xl: 92px;
   --text-display-xl--line-height: 0.94;
@@ -99,9 +103,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  /* Clear the sticky mobile order bar so the footer is never hidden behind it. */
+  /* Clear the floating mobile action bar so the footer is never hidden behind it. */
   @media (max-width: 1023px) {
-    body { padding-bottom: 52px; }
+    body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
@@ -412,6 +416,40 @@
 
 @media (prefers-reduced-motion: reduce) {
   .kenburns, .parallax { animation: none; transform: none; }
+}
+
+/* ---- Floating-CTA motion (D&D pattern) -------------------------------- */
+/* Sheen sweep across a button (triggered on hover via group-hover). */
+@keyframes sheen {
+  0% { transform: translateX(-130%) skewX(-18deg); }
+  60%, 100% { transform: translateX(260%) skewX(-18deg); }
+}
+
+/* Drawn checkmark for the personalized thank-you state. */
+@keyframes draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Pop-in for the success checkmark badge. */
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Continuous brand-red glow pulse on the primary floating CTA. Gated below. */
+.animate-glow-pulse {
+  animation: var(--animate-glow-pulse);
+}
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 8px 22px rgba(224, 32, 30, 0.35), 0 0 0 0 rgba(224, 32, 30, 0);
+  }
+  50% {
+    box-shadow: 0 10px 28px rgba(224, 32, 30, 0.5), 0 0 0 6px rgba(224, 32, 30, 0.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-glow-pulse { animation: none; }
 }
 
 /* WCAG 2.4.7 keyboard focus */
