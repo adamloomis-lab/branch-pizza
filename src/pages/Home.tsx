@@ -1,6 +1,7 @@
 import { Star, Phone, ShoppingBag, MapPin, Clock, Award, Heart, Flame } from 'lucide-react'
 import Button from '../components/Button'
 import OpenNow from '../components/OpenNow'
+import TonightBand from '../components/TonightBand'
 import SectionHeading from '../components/SectionHeading'
 import HoursList from '../components/HoursList'
 import Reviews from '../components/Reviews'
@@ -78,6 +79,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ---- TONIGHT AT BRANCH (live contextual band) ---------------------- */}
+      <TonightBand />
 
       {/* ---- AWARD / PILLARS ---------------------------------------------- */}
       <section className="paper-texture-soft bg-paper py-20 md:py-28">
