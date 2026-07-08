@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Calculator, Plus, Minus, Trash2, ShoppingBag, ChevronDown } from 'lucide-react'
+import { Calculator, Plus, Minus, Trash2, ShoppingBag, ChevronDown, Copy, Check } from 'lucide-react'
 import {
   company,
   specialtyPizzas,
@@ -31,6 +31,41 @@ export default function PizzaEstimator() {
   const [size, setSize] = useState<PizzaSizeKey>('14')
   const [qty, setQty] = useState(1)
   const [lines, setLines] = useState<Line[]>([])
+  const [copied, setCopied] = useState(false)
+
+  // Plain-text order summary for the clipboard, handy while ordering online or
+  // reading the order over the phone. (Heartland's ordering app has no cart
+  // prefill or deep links, so a clean copy-paste list is the best handoff.)
+  const copyList = async () => {
+    const text = [
+      'My Branch Pizza order:',
+      ...lines.map((l) => `${l.qty}x ${l.pie} (${l.sizeLabel.replace('″', ' inch')}) ${money(l.each * l.qty)}`),
+      `Estimated total: ${money(total)}`,
+    ].join('\n')
+    let ok = false
+    try {
+      await navigator.clipboard.writeText(text)
+      ok = true
+    } catch {
+      // Fallback for older browsers / restricted contexts.
+      try {
+        const ta = document.createElement('textarea')
+        ta.value = text
+        ta.style.position = 'fixed'
+        ta.style.opacity = '0'
+        document.body.appendChild(ta)
+        ta.select()
+        ok = document.execCommand('copy')
+        ta.remove()
+      } catch {
+        /* clipboard unavailable */
+      }
+    }
+    if (ok) {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2500)
+    }
+  }
 
   const current = priceFor(pie, size)
   const total = useMemo(() => lines.reduce((s, l) => s + l.each * l.qty, 0), [lines])
@@ -184,6 +219,23 @@ export default function PizzaEstimator() {
           >
             <ShoppingBag size={15} /> Order For Real
           </a>
+          {lines.length > 0 && (
+            <button
+              type="button"
+              onClick={copyList}
+              className="mt-2.5 inline-flex w-full items-center justify-center gap-2 rounded border-2 border-ink/20 px-6 py-2.5 font-cond text-[12px] font-semibold uppercase tracking-[0.14em] text-ink-soft transition-colors hover:border-ink hover:text-ink"
+            >
+              {copied ? (
+                <>
+                  <Check size={14} className="text-brick" /> Copied, read it off while you order
+                </>
+              ) : (
+                <>
+                  <Copy size={14} /> Copy List
+                </>
+              )}
+            </button>
+          )}
           <p className="mt-3 text-center text-[11px] leading-relaxed text-ink-faint">
             Prices mirror the register and sync daily. Extra toppings, Chicago style and add-ons may change the final total.
           </p>
