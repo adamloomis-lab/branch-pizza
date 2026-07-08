@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import { ShoppingBag, Phone, Beer, Wine, Plus, Salad, Flame, Drumstick } from 'lucide-react'
 import Button from '../components/Button'
+import PizzaEstimator from '../components/PizzaEstimator'
 import {
   company,
   specialtyPizzas,
@@ -238,6 +239,9 @@ function SpecialtyPies() {
           </h4>
           <p className="mt-2 text-[14px] leading-relaxed text-ink-soft">{buildYourOwn.toppings}</p>
         </div>
+
+        {/* Interactive order estimator */}
+        <PizzaEstimator />
 
         <p className="mt-6 text-center text-[12px] text-ink-faint">
           Prices shown for reference and may change.{' '}
