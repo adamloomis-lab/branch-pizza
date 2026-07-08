@@ -57,6 +57,19 @@ export const hours = [
   { day: 'Saturday', short: 'Sat', dow: 6, time: '4:00 - 10:00 pm' },
 ]
 
+// Structured open/close ranges (minutes since midnight, restaurant-local time)
+// for the live "Open Now" indicator. dow matches Date.getDay() (0 = Sun).
+export const hoursTimezone = 'America/New_York'
+export const hoursRanges: Record<number, { open: number; close: number }> = {
+  0: { open: 16 * 60, close: 21 * 60 }, // Sun 4–9
+  1: { open: 16 * 60, close: 21 * 60 }, // Mon 4–9
+  2: { open: 11 * 60, close: 21 * 60 }, // Tue 11–9
+  3: { open: 11 * 60, close: 21 * 60 }, // Wed 11–9
+  4: { open: 11 * 60, close: 21 * 60 }, // Thu 11–9
+  5: { open: 11 * 60, close: 22 * 60 }, // Fri 11–10
+  6: { open: 16 * 60, close: 22 * 60 }, // Sat 4–10
+}
+
 export const hoursCompact = [
   { day: 'Mon', time: '4 - 9 pm' },
   { day: 'Tue - Thu', time: '11 am - 9 pm' },

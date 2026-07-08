@@ -1,5 +1,6 @@
 import { Star, Phone, ShoppingBag, MapPin, Clock, Award, Heart, Flame } from 'lucide-react'
 import Button from '../components/Button'
+import OpenNow from '../components/OpenNow'
 import SectionHeading from '../components/SectionHeading'
 import HoursList from '../components/HoursList'
 import Reviews from '../components/Reviews'
@@ -48,7 +49,11 @@ export default function Home() {
               full bar, right on the Sunbury square for nearly 50 years.
             </p>
 
-            <div className="rise rise-3 mt-8 flex flex-wrap items-center gap-4">
+            <div className="rise rise-3 mt-7">
+              <OpenNow />
+            </div>
+
+            <div className="rise rise-3 mt-5 flex flex-wrap items-center gap-4">
               <Button href={company.order.online} variant="brick" external>
                 <ShoppingBag size={16} /> Order Online
               </Button>
@@ -257,9 +262,12 @@ export default function Home() {
           </div>
 
           <div className="reveal card-brut rounded-lg p-7">
-            <h3 className="flex items-center gap-2 font-display text-headline-sm uppercase text-ink">
-              <Clock size={18} className="text-brick" /> Hours
-            </h3>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h3 className="flex items-center gap-2 font-display text-headline-sm uppercase text-ink">
+                <Clock size={18} className="text-brick" /> Hours
+              </h3>
+              <OpenNow tone="light" />
+            </div>
             <HoursList className="mt-5" />
           </div>
         </div>

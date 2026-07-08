@@ -7,6 +7,7 @@ import {
 import { company } from '../data/site'
 import { faqs } from '../lib/seo'
 import HoursList from '../components/HoursList'
+import OpenNow from '../components/OpenNow'
 import { FloatField, SuccessCheck } from '../components/FluidField'
 
 // Interactive FAQ accordion, each question is a brutalist card that expands.
@@ -176,9 +177,12 @@ export default function Contact() {
             </a>
 
             <div className="card-brut mt-10 rounded-lg p-7">
-              <div className="flex items-center gap-3">
-                <Clock size={20} className="text-brick" />
-                <h3 className="font-cond text-headline-sm uppercase text-ink">Hours</h3>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <Clock size={20} className="text-brick" />
+                  <h3 className="font-cond text-headline-sm uppercase text-ink">Hours</h3>
+                </div>
+                <OpenNow tone="light" />
               </div>
               <HoursList className="mt-4 -mx-2" />
             </div>
