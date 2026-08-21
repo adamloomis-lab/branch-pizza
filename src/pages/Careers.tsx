@@ -8,8 +8,6 @@ import { FloatField, SuccessCheck } from '../components/FluidField'
 // are claimed). Submits to the Netlify form "application" as multipart so the
 // optional resume file uploads too.
 
-const POSITIONS = ['Kitchen', 'Front Counter', 'Bartender', 'Open to Anything']
-
 const pillars = [
   {
     icon: Heart,
@@ -141,33 +139,13 @@ export default function Careers() {
                 </div>
                 <FloatField name="email" label="Email" type="email" idPrefix="job" value={formData.email} onChange={handleChange} />
 
-                <fieldset>
-                  <legend className="font-cond text-[11px] font-semibold uppercase tracking-[0.2em] text-ink-faint">
-                    Where do you see yourself?
-                  </legend>
-                  <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-                    {POSITIONS.map((p) => {
-                      const on = formData.position === p
-                      return (
-                        <button
-                          key={p}
-                          type="button"
-                          onClick={() => setFormData((prev) => ({ ...prev, position: on ? '' : p }))}
-                          aria-pressed={on}
-                          className={`rounded-md border-2 px-3 py-3 text-center font-cond text-[13px] font-semibold uppercase tracking-[0.06em] transition-all ${
-                            on
-                              ? 'border-ink bg-brick text-on-brick shadow-[3px_3px_0_0_var(--color-ink)]'
-                              : 'border-ink/15 bg-paper-2 text-ink hover:border-ink'
-                          }`}
-                        >
-                          {p}
-                        </button>
-                      )
-                    })}
-                  </div>
-                  <input type="hidden" name="position" value={formData.position} />
-                </fieldset>
-
+                <FloatField
+                  name="position"
+                  label="What position are you interested in?"
+                  idPrefix="job"
+                  value={formData.position}
+                  onChange={handleChange}
+                />
                 <FloatField
                   name="availability"
                   label="Availability (days, evenings, weekends...)"
