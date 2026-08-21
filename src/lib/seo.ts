@@ -313,6 +313,21 @@ export function getPageMeta(rawPath: string): PageMeta {
           ]),
         ],
       }
+    case '/careers':
+      return {
+        title: 'Jobs at Branch Pizza | Join the Crew in Sunbury, OH',
+        description:
+          'Come work at Branch Pizza, a family-run, women-owned pizzeria on the Sunbury square since 1977. Kitchen, front counter and bar. Apply online in two minutes.',
+        canonical: pageUrl('/careers'),
+        ogImage: abs('/images/pepperoni-cup-bar.webp'),
+        jsonLd: [
+          restaurantSchema(),
+          breadcrumb([
+            { name: 'Home', path: '/' },
+            { name: 'Careers', path: '/careers' },
+          ]),
+        ],
+      }
     case '/privacy':
       return {
         title: 'Privacy Policy | Branch Pizza',
@@ -355,6 +370,7 @@ export const ALL_ROUTES: string[] = [
   '/',
   '/menu',
   '/about',
+  '/careers',
   '/contact',
   '/privacy',
   '/terms',

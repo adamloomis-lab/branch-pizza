@@ -12,6 +12,7 @@ import Home from './pages/Home'
 import Menu from './pages/Menu'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import Careers from './pages/Careers'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import Accessibility from './pages/Accessibility'
@@ -38,6 +39,7 @@ function Shell() {
           <Route path="/menu" component={Menu} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
+          <Route path="/careers" component={Careers} />
           <Route path="/privacy" component={Privacy} />
           <Route path="/terms" component={Terms} />
           <Route path="/accessibility" component={Accessibility} />
